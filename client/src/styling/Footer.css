@@ -1,0 +1,75 @@
+/* Footer */
+#dev-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #3e6680;
+  color: #e8eddf;
+  font-size: 0.8em;
+  /* margin-right: 0.4em; */
+}
+/* Nav Bar */
+.nav-bar ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* background-color: #FFFFFF; */
+  list-style: none;
+  padding-right: 40px;
+}
+
+.nav-bar li {
+  margin: 1em;
+}
+
+.icon-style {
+  display: flex;
+  flex-shrink: 1;
+  height: 2.5em;
+  width: 2.5em;
+}
+
+.icon-style:hover {
+  opacity: 0.5;
+}
+
+.github-logo {
+  background-color: white;
+  border: 1px solid #3c474d;
+  border-radius: 0.1em;
+}
+
+.gmail-logo {
+  background-color: white;
+  border-radius: 0.1em;
+  margin: 0em;
+}
+
+.line {
+  background-color: white;
+  border-width: 1px;
+  height: 25%;
+  width: 25em;
+}
+
+.signature {
+  margin: 0.2em;
+}
+
+@media (max-device-width: 1024px) and (min-device-width: 320px) {
+  .nav-bar li {
+    margin: 0.3em;
+  }
+
+  .icon-style:hover {
+    opacity: 0.5;
+  }
+  .line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-width: 0px;
+    width: 20em;
+  }
+}

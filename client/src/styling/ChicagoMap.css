@@ -1,0 +1,25 @@
+.map-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* width: 500px;
+  height: 500px; */
+}
+
+.map-styling {
+  display: flex;
+  /* flex-shrink: 2; */
+  border: 1px solid black;
+  height: 50em;
+  width: 50em;
+  margin: 0.5em;
+}
+
+@media (max-device-width: 1024px) and (min-device-width: 320px) {
+  .map-styling {
+    display: flex;
+    border: 1px solid black;
+    height: 20em;
+    width: 20em;
+  }
+}
