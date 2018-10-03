@@ -1,6 +1,6 @@
 .map-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-end;
   /* width: 500px;
   height: 500px; */
@@ -10,9 +10,29 @@
   display: flex;
   /* flex-shrink: 2; */
   border: 1px solid black;
-  height: 50em;
-  width: 50em;
+  height: 40em;
+  width: 40em;
   margin: 0.5em;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.add-event-button {
+  background-color: #1D5D90;
+  border-radius: 0.3em;
+  color:white;
+  margin: 0.5em;
+  height: 3em;
+  width: 8em;
+}
+
+.event-list {
+  text-decoration: underline;
 }
 
 @media (max-device-width: 1024px) and (min-device-width: 320px) {
