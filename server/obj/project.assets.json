@@ -11500,23 +11500,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Halberd\\.nuget\\packages\\": {},
+    "C:\\Users\\Dan\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Halberd\\sdg\\unit-3\\capstone\\server\\capstone.csproj",
+      "projectUniqueName": "c:\\Users\\Dan\\sdg\\unit-3\\capstone\\server\\capstone.csproj",
       "projectName": "capstone",
-      "projectPath": "c:\\Users\\Halberd\\sdg\\unit-3\\capstone\\server\\capstone.csproj",
-      "packagesPath": "C:\\Users\\Halberd\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Halberd\\sdg\\unit-3\\capstone\\server\\obj\\",
+      "projectPath": "c:\\Users\\Dan\\sdg\\unit-3\\capstone\\server\\capstone.csproj",
+      "packagesPath": "C:\\Users\\Dan\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\Dan\\sdg\\unit-3\\capstone\\server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Halberd\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Dan\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
