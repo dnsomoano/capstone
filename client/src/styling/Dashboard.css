@@ -1,6 +1,42 @@
 /* TODO fix importing of date picker's css for FLEX */
 /* @import "react-datepicker/dist/react-datepicker.css"; */
 
+.account-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+}
+
+.account-box {
+  display: flex;
+  flex-direction: row;
+  background-color: #222222;
+  border: 1px outset #999999;
+  border-radius: 0.2em;
+  padding: 0.5em;
+  max-width: 30em;
+}
+
+.profile-picture {
+  border: 1px solid #222222;
+  border-radius: 0.3em;
+  margin: 0.2em;
+  height: 4em;
+  width: 4em;
+}
+
+.account-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.logout-button {
+  font-size: 1em;
+  color: blue;
+  text-decoration: underline;
+}
+
 .map-container {
   display: flex;
   flex-direction: row;

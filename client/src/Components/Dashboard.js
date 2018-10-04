@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "../styling/Dashboard.css";
+import Auth from "../Auth/Auth.js";
+
 import { Link } from "react-router-dom";
-// import { navigator, geolocation, geolocated } from "react-geolocated";
+import { geolocated } from "react-geolocated";
 import {
   // FeatureGroup,
   Map,
@@ -15,28 +17,47 @@ import moment from "moment";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-class DisplayMap extends Component {
+const auth = new Auth();
+
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       //   Date: moment(),
       startDate: moment(),
-      latitude: 27.77207,
-      longitude: -82.638489,
+      latitude: 0,
+      longitude: 0,
       zoom: 13,
-      events: []
+      events: [],
+      authed: {
+        isLoggedIn: false
+      }
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.getGeolocation();
-  // }
+  componentDidMount() {
+    console.log({ props: this.props });
+
+    if (auth.isAuthenticated()) {
+      auth.getProfile((err, profile) => {
+        this.setState({
+          latitude: this.props.coords.latitude,
+          longitude: this.props.coords.longitude,
+          authed: {
+            isLoggedIn: true,
+            profile
+          }
+        });
+      });
+    }
+    // this.getGeolocation();
+  }
 
   // TODO fix Get user's geolocation, then render onto map
   // getGeolocation = () => {
-  //   if (!geolocated.isGeolocationEnabled) {
-  //     navigator.geolocation.getCurrentPosition(position => {
+  //   if (!this.props.isGeolocationEnabled) {
+  //     this.props.geolocation.getCurrentPosition(position => {
   //       console.log(position.coords.latitude, position.coords.longitude);
   //       this.setState({
   //         latitude: position.coords.latitude,
@@ -50,6 +71,19 @@ class DisplayMap extends Component {
   //   }
   // };
 
+  login = () => {
+    auth.login();
+  };
+
+  logout = () => {
+    auth.logout();
+    // this.setState({
+    //   authed: {
+    //     isLoggedIn: false
+    //   }
+    // });
+  };
+
   // Handles date change for the calendar
   handleChange(date) {
     this.setState({
@@ -58,9 +92,32 @@ class DisplayMap extends Component {
   }
 
   render() {
-    const positionOnMap = [this.state.latitude, this.state.longitude];
+    let button = <section>Loading...</section>;
+    const positionOnMap = [this.state.latitude, this.state.longitude]; //[this.props.coords.latitude, this.props.coords.longitude];
+    if (this.state.authed.isLoggedIn) {
+      button = (
+        <section>
+          <section className="account-info">
+            <section className="account-box">
+              <img
+                className="profile-picture"
+                src={this.state.authed.profile.picture}
+                alt={this.state.authed.profile.nickname}
+              />
+              <section className="account-name">
+                Welcome {this.state.authed.profile.name}!
+                <a onClick={this.logout} className="logout-button">
+                  not you?
+                </a>
+              </section>
+            </section>
+          </section>
+        </section>
+      );
+    }
     return (
       <div>
+        {button}
         <section className="map-container">
           <Map
             center={positionOnMap}
@@ -103,11 +160,9 @@ class DisplayMap extends Component {
   }
 }
 
-export default DisplayMap;
-
-// export const DisplayMapForm = geolocated({
-//   positionOptions: {
-//     enableHighAccuracy: false
-//   },
-//   userDecisionTimeout: 5000
-// })(DisplayMap);
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false
+  },
+  userDecisionTimeout: 5000
+})(Dashboard);
