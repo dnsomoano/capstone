@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "../styling/Dashboard.css";
+import { Link } from "react-router-dom";
+// import { navigator, geolocation, geolocated } from "react-geolocated";
 import {
   // FeatureGroup,
   Map,
@@ -27,13 +29,28 @@ class DisplayMap extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  //   componentDidMount() {
-  //     this.setState({
-  //       latitude: 27.77207,
-  //       longitude: -82.638489
-  //     });
-  //   }
+  // componentDidMount() {
+  //   this.getGeolocation();
+  // }
 
+  // TODO fix Get user's geolocation, then render onto map
+  // getGeolocation = () => {
+  //   if (!geolocated.isGeolocationEnabled) {
+  //     navigator.geolocation.getCurrentPosition(position => {
+  //       console.log(position.coords.latitude, position.coords.longitude);
+  //       this.setState({
+  //         latitude: position.coords.latitude,
+  //         longitude: position.coords.longitude
+  //       });
+  //     });
+  //   } else if (!geolocated.isGeolocationAvailable) {
+  //     console.log("Geolocation is not available");
+  //   } else {
+  //     console.log("Geolocation not enabled");
+  //   }
+  // };
+
+  // Handles date change for the calendar
   handleChange(date) {
     this.setState({
       startDate: moment().format("YYYY-MM-DD")
@@ -62,16 +79,21 @@ class DisplayMap extends Component {
           </Map>
           <section className="side-bar">
             <DatePicker
+              className="date-picker"
               inline
               selected={this.state.startDate}
               onChange={this.handleChange}
             />
-            <button className="add-event-button">Add Event</button>
+            <Link to="/new_event">
+              <button className="add-event-button">Add Event</button>
+            </Link>
             <section>
               <header className="event-list">Events of the Day</header>
-              <section>{this.state.events.map((event, i) => {
-                  return <button key={i}>{event}</button>
-              })}</section>
+              <section>
+                {this.state.events.map((event, i) => {
+                  return <button key={i}>{event}</button>;
+                })}
+              </section>
             </section>
           </section>
         </section>
@@ -82,3 +104,10 @@ class DisplayMap extends Component {
 }
 
 export default DisplayMap;
+
+// export const DisplayMapForm = geolocated({
+//   positionOptions: {
+//     enableHighAccuracy: false
+//   },
+//   userDecisionTimeout: 5000
+// })(DisplayMap);

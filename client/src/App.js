@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { render } from "react-dom";
 // import logo from "./images/logo.png";
 import "./App.css";
-// import EventForm from "./Components/EventForm";
 // import DisplayMap from "./Components/DisplayMap";
 import Dashboard from "./Components/Dashboard";
+import EventForm from "./Components/EventForm";
 import Footer from "./Components/Footer";
 // import AustinMap from "./Components/AustinMap";
 // import NodeGeocoder?
@@ -22,10 +22,10 @@ class App extends Component {
             <h1 className="App-title">Daily Mapper</h1>
           </header>
           <section className="body">
-            <section className="main-menu">
-            </section>
+            <section className="main-menu" />
             <Switch>
               <Route path="/" exact component={Dashboard} />
+              <Route path="/new_event" exact component={EventForm} />
             </Switch>
           </section>
           <section className="footer-container">
