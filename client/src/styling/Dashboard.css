@@ -1,3 +1,4 @@
+/* TODO fix importing of date picker's css for FLEX */
 /* @import "react-datepicker/dist/react-datepicker.css"; */
 
 .map-container {
@@ -37,6 +38,7 @@
   text-decoration: underline;
 }
 
+/* Mobile Devices */
 @media (max-device-width: 1024px) and (min-device-width: 320px) {
   .map-container {
     display: flex;

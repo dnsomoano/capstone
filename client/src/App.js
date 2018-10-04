@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { render } from "react-dom";
+import StartButton from "./Components/StartButton";
 // import logo from "./images/logo.png";
 import "./App.css";
-// import DisplayMap from "./Components/DisplayMap";
 import Dashboard from "./Components/Dashboard";
 import EventForm from "./Components/EventForm";
 import Footer from "./Components/Footer";
-// import AustinMap from "./Components/AustinMap";
 // import NodeGeocoder?
 
 class App extends Component {
@@ -24,7 +23,8 @@ class App extends Component {
           <section className="body">
             <section className="main-menu" />
             <Switch>
-              <Route path="/" exact component={Dashboard} />
+              <Route path="/" exact component={StartButton} />
+              <Route path="/home" exact component={Dashboard} />
               <Route path="/new_event" exact component={EventForm} />
             </Switch>
           </section>
