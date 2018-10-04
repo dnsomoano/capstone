@@ -71,17 +71,13 @@ class Dashboard extends Component {
   //   }
   // };
 
+  // Handles login & logout
   login = () => {
     auth.login();
   };
 
   logout = () => {
     auth.logout();
-    // this.setState({
-    //   authed: {
-    //     isLoggedIn: false
-    //   }
-    // });
   };
 
   // Handles date change for the calendar
