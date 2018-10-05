@@ -25,7 +25,28 @@ namespace capstone
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {}
+        {
+            modelBuilder.Entity<Profiles>().HasData(
+                new Profiles
+                {
+                    Id = 1,
+                    EmailAddress = "dnsomoano@gmail.com",
+                    UserName = "dnsomoano",
+                    Address = "2220 Central Ave.",
+                    Latitude = 40.698470,
+                    Longitude = -99.082070
+                },
+                new Profiles
+                {
+                    Id = 2,
+                    EmailAddress = "mallorysmith6464@gmail.com",
+                    UserName = "marssmith",
+                    Address = null,
+                    Latitude = 0.0000,
+                    Longitude = 0.0000
+                }
+            );
+        }
 
         public DbSet<Profiles> Profiles { get; set; }
     }
