@@ -31,7 +31,7 @@ class MembersList extends Component {
           <span className="breadcrumb">
             <Link to="/home" className="link">
               {/* <img id="home_icon" src={Home} alt="Home Icon" /> */}
-              Home
+              <button>Home</button>
             </Link>
             <span> >> MembersList </span>
           </span>

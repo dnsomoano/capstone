@@ -103,9 +103,9 @@ class Dashboard extends Component {
               <section className="account-name">
                 <section className="greeting">
                   Welcome {this.state.authed.profile.name}!
-                  <a onClick={this.logout} className="logout-button">
+                  <button onClick={this.logout} className="logout-button">
                     not you?
-                  </a>
+                  </button>
                 </section>
                 <section className="user-buttons-container">
                   <Link to="/members">

@@ -10,7 +10,7 @@ class EventForm extends Component {
           <span className="breadcrumb">
             <Link to="/home" className="link">
               {/* <img id="home_icon" src={Home} alt="Home Icon" /> */}
-              Home
+              <button>Home</button>
             </Link>
             <span> >> New Event </span>
           </span>
@@ -19,19 +19,19 @@ class EventForm extends Component {
           <section className="field-style">
             <form>
               <section className="row">
-                <header>Name of Event:</header>
+                <header className="field-header">Name of Event:</header>
                 <input type="text" placeholder="name of event" />
               </section>
               <section className="row">
-                <header>Location:</header>
+                <header className="field-header">Location:</header>
                 <input type="text" placeholder="location of event" />
               </section>
               <section className="row">
-                <header>Time Start:</header>
+                <header className="field-header">Time Start:</header>
                 <input type="text" placeholder="0:00" />
               </section>
               <section className="row">
-                <header>Time End:</header>
+                <header className="field-header">Time End:</header>
                 <input type="text" placeholder="0:00" />
               </section>
               <button>Submit</button>

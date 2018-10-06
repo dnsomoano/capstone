@@ -4,6 +4,7 @@ import "./App.css";
 import { Router, Route, Switch } from "react-router-dom";
 // import { render } from "react-dom";
 import StartButton from "./Components/StartButton";
+import RegistrationForm from "./Components/RegistrationForm";
 import Callback from "./Components/Callback";
 import Dashboard from "./Components/Dashboard";
 import MembersList from "./Components/MembersList";
@@ -31,12 +32,13 @@ class App extends Component {
             {/* <section className="image-container">
           <img src={logo} className="App-logo" alt="logo" />
         </section> */}
-            <h1 className="App-title">Daily Mapper</h1>
+            <h1 className="App-title">A Daily Map</h1>
           </header>
           <section className="body">
             <section className="main-menu" />
             <Switch>
               <Route path="/" exact component={StartButton} />
+              <Route path="/register" exact component={RegistrationForm} />
               <Route path="/home" exact component={Dashboard} />
               <Route path="/members" exact component={MembersList} />
               {/* TODO fix to pass id as props */}

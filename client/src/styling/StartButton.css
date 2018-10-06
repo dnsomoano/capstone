@@ -19,6 +19,10 @@
   /* opacity: 0.6; */
 }
 
+.register-link {
+  text-decoration: highlight;
+}
+
 /* Mobile Devices */
 /* @media (max-device-width: 1024px) and (min-device-width: 320px) {
 } */
