@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using capstone;
@@ -9,9 +10,10 @@ using capstone;
 namespace capstone.Migrations
 {
     [DbContext(typeof(DailyMapContext))]
-    partial class DailyMapContextModelSnapshot : ModelSnapshot
+    [Migration("20181005174626_AddedProfileTable")]
+    partial class AddedProfileTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,8 @@ namespace capstone.Migrations
 
                     b.Property<string>("Address");
 
+                    b.Property<DateTime>("DateCreated");
+
                     b.Property<string>("EmailAddress");
 
                     b.Property<double>("Latitude");
@@ -39,8 +43,8 @@ namespace capstone.Migrations
                     b.ToTable("Profiles");
 
                     b.HasData(
-                        new { Id = 1, Address = "2220 Central Ave.", EmailAddress = "dnsomoano@gmail.com", Latitude = 27.77074, Longitude = -82.66353, UserName = "dnsomoano" },
-                        new { Id = 2, EmailAddress = "mallorysmith6464@gmail.com", Latitude = 0.0, Longitude = 0.0, UserName = "Marssmith" }
+                        new { Id = 1, Address = "2220 Central Ave.", DateCreated = new DateTime(2018, 10, 5, 13, 46, 25, 811, DateTimeKind.Local), EmailAddress = "dnsomoano@gmail.com", Latitude = 40.69847, Longitude = -99.08207, UserName = "dnsomoano" },
+                        new { Id = 2, DateCreated = new DateTime(2018, 10, 5, 13, 46, 25, 814, DateTimeKind.Local), EmailAddress = "mallorysmith6464@gmail.com", Latitude = 0.0, Longitude = 0.0, UserName = "marssmith" }
                     );
                 });
 #pragma warning restore 612, 618

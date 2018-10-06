@@ -1,4 +1,5 @@
 ﻿using System;
+using capstone.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -41,10 +42,10 @@ namespace capstone
                 {
                     Id = 2,
                     EmailAddress = "mallorysmith6464@gmail.com",
-                    UserName = "Marssmith",
+                    UserName = "marssmith",
                     Address = null,
                     Latitude = 0.0000,
-                    Longitude = 0.0000,
+                    Longitude = 0.0000
                 }
             );
         }
