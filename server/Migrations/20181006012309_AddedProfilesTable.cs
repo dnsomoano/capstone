@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace capstone.Migrations
 {
-    public partial class AddedProfileTable : Migration
+    public partial class AddedProfilesTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,12 +29,12 @@ namespace capstone.Migrations
             migrationBuilder.InsertData(
                 table: "Profiles",
                 columns: new[] { "Id", "Address", "DateCreated", "EmailAddress", "Latitude", "Longitude", "UserName" },
-                values: new object[] { 1, "2220 Central Ave.", new DateTime(2018, 10, 5, 13, 46, 25, 811, DateTimeKind.Local), "dnsomoano@gmail.com", 40.69847, -99.08207, "dnsomoano" });
+                values: new object[] { 1, "2220 Central Ave.", new DateTime(2018, 10, 5, 21, 23, 8, 704, DateTimeKind.Local), "dnsomoano@gmail.com", 27.77074, -82.66353, "dnsomoano" });
 
             migrationBuilder.InsertData(
                 table: "Profiles",
                 columns: new[] { "Id", "Address", "DateCreated", "EmailAddress", "Latitude", "Longitude", "UserName" },
-                values: new object[] { 2, null, new DateTime(2018, 10, 5, 13, 46, 25, 814, DateTimeKind.Local), "mallorysmith6464@gmail.com", 0.0, 0.0, "marssmith" });
+                values: new object[] { 2, null, new DateTime(2018, 10, 5, 21, 23, 8, 705, DateTimeKind.Local), "mallorysmith6464@gmail.com", 0.0, 0.0, "marssmith" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

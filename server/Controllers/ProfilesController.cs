@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using capstone.Models;
 
 namespace capstone.Controllers
 {
@@ -10,25 +11,34 @@ namespace capstone.Controllers
     [ApiController]
     public class ProfilesController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public DailyMapContext db { get; set; }
+
+        public ProfilesController()
         {
-            return new string[] { "value1", "value2" };
+            this.db = new DailyMapContext();
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        // GET api/profiles
+        [HttpGet]
+        public ActionResult<IEnumerable<Profiles>> Get()
         {
-            return "value";
+            return this.db.Profiles;
+        }
+
+        // GET api/profiles/{id}
+        [HttpGet("{id}")]
+        public ActionResult<Profiles> Get(int id)
+        {
+            // returns first value that matches id
+            return this.db.Profiles.FirstOrDefault(f => f.Id == id);
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        // [HttpPost]
+        // public Profiles Post([FromBody] string email, userName, Address)
+        // {
+        //     Profiles.EmailAddress = email;
+        // }
 
         // PUT api/values/5
         [HttpPut("{id}")]

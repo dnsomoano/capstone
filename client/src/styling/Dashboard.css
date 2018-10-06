@@ -89,8 +89,14 @@
     width: 29em;
   }
 
+
   /* .date-picker {
     height: 10em;
     width: 10em;
   } */
+}
+
+/* override the datepicker*/
+.side-bar .react-datepicker__month-container {
+  float: none;
 }

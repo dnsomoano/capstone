@@ -10,8 +10,8 @@ using capstone;
 namespace capstone.Migrations
 {
     [DbContext(typeof(DailyMapContext))]
-    [Migration("20181005174626_AddedProfileTable")]
-    partial class AddedProfileTable
+    [Migration("20181006012309_AddedProfilesTable")]
+    partial class AddedProfilesTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace capstone.Migrations
                 .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("capstone.Profiles", b =>
+            modelBuilder.Entity("capstone.Models.Profiles", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -43,8 +43,8 @@ namespace capstone.Migrations
                     b.ToTable("Profiles");
 
                     b.HasData(
-                        new { Id = 1, Address = "2220 Central Ave.", DateCreated = new DateTime(2018, 10, 5, 13, 46, 25, 811, DateTimeKind.Local), EmailAddress = "dnsomoano@gmail.com", Latitude = 40.69847, Longitude = -99.08207, UserName = "dnsomoano" },
-                        new { Id = 2, DateCreated = new DateTime(2018, 10, 5, 13, 46, 25, 814, DateTimeKind.Local), EmailAddress = "mallorysmith6464@gmail.com", Latitude = 0.0, Longitude = 0.0, UserName = "marssmith" }
+                        new { Id = 1, Address = "2220 Central Ave.", DateCreated = new DateTime(2018, 10, 5, 21, 23, 8, 704, DateTimeKind.Local), EmailAddress = "dnsomoano@gmail.com", Latitude = 27.77074, Longitude = -82.66353, UserName = "dnsomoano" },
+                        new { Id = 2, DateCreated = new DateTime(2018, 10, 5, 21, 23, 8, 705, DateTimeKind.Local), EmailAddress = "mallorysmith6464@gmail.com", Latitude = 0.0, Longitude = 0.0, UserName = "marssmith" }
                     );
                 });
 #pragma warning restore 612, 618
