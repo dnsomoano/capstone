@@ -1,10 +1,20 @@
 import React, { Component } from "react";
 import "../styling/EventForm.css";
+import { Link } from "react-router-dom";
 
 class EventForm extends Component {
   render() {
     return (
       <div>
+        <section className="breadcrumbs-container">
+          <span className="breadcrumb">
+            <Link to="/home" className="link">
+              {/* <img id="home_icon" src={Home} alt="Home Icon" /> */}
+              Home
+            </Link>
+            <span> >> New Event </span>
+          </span>
+        </section>
         <section className="form-container">
           <section className="field-style">
             <form>

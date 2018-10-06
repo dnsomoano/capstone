@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../styling/EditProfile.css";
+import { Link } from "react-router-dom";
 
 class EditProfile extends Component {
   constructor(props) {
@@ -28,6 +29,15 @@ class EditProfile extends Component {
   render() {
     return (
       <div>
+        <section className="breadcrumbs-container">
+          <span className="breadcrumb">
+            <Link to="/home" className="link">
+              {/* <img id="home_icon" src={Home} alt="Home Icon" /> */}
+              Home
+            </Link>
+            <span> >> Edit Profile </span>
+          </span>
+        </section>
         <section>
           {/* TODO display individual profile in input field for user to edit */}
           <section className="profile-container">

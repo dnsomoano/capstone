@@ -39,6 +39,7 @@ class App extends Component {
               <Route path="/" exact component={StartButton} />
               <Route path="/home" exact component={Dashboard} />
               <Route path="/members" exact component={MembersList} />
+              {/* TODO fix to pass id as props */}
               <Route path="/profile/:id" exact component={EditProfile} />
               <Route path="/new_event" exact component={EventForm} />
               <Route

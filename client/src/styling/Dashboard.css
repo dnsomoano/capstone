@@ -31,10 +31,25 @@
   flex-direction: column;
 }
 
+.greeting {
+  display: flex;
+  flex-direction: row;
+}
+
 .logout-button {
   font-size: 1em;
   color: blue;
   text-decoration: underline;
+}
+
+.user-buttons-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0.2em;
+}
+
+.user-buttons {
+  margin: 0.2em;
 }
 
 .map-container {
@@ -89,14 +104,13 @@
     width: 29em;
   }
 
-
   /* .date-picker {
     height: 10em;
     width: 10em;
   } */
-}
 
-/* override the datepicker*/
-.side-bar .react-datepicker__month-container {
-  float: none;
+  /* override the datepicker*/
+  .side-bar .react-datepicker__month-container {
+    float: none;
+  }
 }

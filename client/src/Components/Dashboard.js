@@ -94,9 +94,6 @@ class Dashboard extends Component {
       button = (
         <section>
           <section className="account-info">
-            <Link to="/members">
-              <button>Members List</button>
-            </Link>
             <section className="account-box">
               <img
                 className="profile-picture"
@@ -104,13 +101,20 @@ class Dashboard extends Component {
                 alt={this.state.authed.profile.nickname}
               />
               <section className="account-name">
-                Welcome {this.state.authed.profile.name}!
-                <Link to="/profile/:id">
-                  <button>Edit Profile</button>
-                </Link>
-                <a onClick={this.logout} className="logout-button">
-                  not you?
-                </a>
+                <section className="greeting">
+                  Welcome {this.state.authed.profile.name}!
+                  <a onClick={this.logout} className="logout-button">
+                    not you?
+                  </a>
+                </section>
+                <section className="user-buttons-container">
+                  <Link to="/members">
+                    <button className="user-buttons">Members List</button>
+                  </Link>
+                  <Link to="/profile/:id">
+                    <button className="user-buttons">Edit Profile</button>
+                  </Link>
+                </section>
               </section>
             </section>
           </section>

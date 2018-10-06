@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../styling/MembersList.css";
+import { Link } from "react-router-dom";
 
 class MembersList extends Component {
   constructor(props) {
@@ -26,6 +27,15 @@ class MembersList extends Component {
   render() {
     return (
       <div>
+        <section className="breadcrumbs-container">
+          <span className="breadcrumb">
+            <Link to="/home" className="link">
+              {/* <img id="home_icon" src={Home} alt="Home Icon" /> */}
+              Home
+            </Link>
+            <span> >> MembersList </span>
+          </span>
+        </section>
         <section className="search-container">
           {/* TODO add event handlers to form for GET request by username *BONUS* fix to search with email aswell */}
           <form className="search-form">
