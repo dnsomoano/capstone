@@ -1,6 +1,6 @@
 using System;
 
-namespace capstone
+namespace capstone.Models
 {
     public class Profiles
     {

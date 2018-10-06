@@ -42,8 +42,8 @@ class Dashboard extends Component {
     if (auth.isAuthenticated()) {
       auth.getProfile((err, profile) => {
         this.setState({
-          latitude: this.props.coords.latitude,
-          longitude: this.props.coords.longitude,
+          // latitude: this.props.coords.latitude,
+          // longitude: this.props.coords.longitude,
           authed: {
             isLoggedIn: true,
             profile
