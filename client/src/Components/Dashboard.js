@@ -94,6 +94,9 @@ class Dashboard extends Component {
       button = (
         <section>
           <section className="account-info">
+            <Link to="/members">
+              <button>Members List</button>
+            </Link>
             <section className="account-box">
               <img
                 className="profile-picture"
@@ -102,6 +105,9 @@ class Dashboard extends Component {
               />
               <section className="account-name">
                 Welcome {this.state.authed.profile.name}!
+                <Link to="/profile/:id">
+                  <button>Edit Profile</button>
+                </Link>
                 <a onClick={this.logout} className="logout-button">
                   not you?
                 </a>

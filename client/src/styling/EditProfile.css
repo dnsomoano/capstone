@@ -1,0 +1,25 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 2em;
+}
+
+.save-button {
+  margin: 0.2em;
+  padding: 0.3em;
+}
+
+.delete-button {
+  background-color: darkred;
+  color: white;
+  margin: 0.2em;
+  padding: 0.3em;
+}

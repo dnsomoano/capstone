@@ -1,0 +1,17 @@
+.search-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.search-form {
+  padding: 1.5em;
+}
+
+.searchbar {
+  margin: 0.3em;
+}
+
+.search-button {
+  margin: 0.2em;
+}

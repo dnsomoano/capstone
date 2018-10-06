@@ -6,6 +6,8 @@ import { Router, Route, Switch } from "react-router-dom";
 import StartButton from "./Components/StartButton";
 import Callback from "./Components/Callback";
 import Dashboard from "./Components/Dashboard";
+import MembersList from "./Components/MembersList";
+import EditProfile from "./Components/EditProfile";
 import EventForm from "./Components/EventForm";
 import Footer from "./Components/Footer";
 // import NodeGeocoder?
@@ -36,6 +38,8 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={StartButton} />
               <Route path="/home" exact component={Dashboard} />
+              <Route path="/members" exact component={MembersList} />
+              <Route path="/profile/:id" exact component={EditProfile} />
               <Route path="/new_event" exact component={EventForm} />
               <Route
                 path="/callback"
