@@ -43,30 +43,45 @@ namespace capstone.Controllers
 
         // TODO fix input for email and username, address works fine.
         // POST api/profiles
-        [HttpPost]
-        public Profiles Post([FromBody] ProfilesModel data)
+        // [HttpPost]
+        // public ActionResult<Profiles> Post([FromQuery] string q, [FromBody] string value)
+        // {
+        //     var profile = new Profiles { };
+        //     this.db.Profiles.Add(profile);
+        //     this.db.SaveChanges();
+        //     return profile;
+        // }
+
+        // TODO fix patch request for profile
+        // TODO possibly add a patch request for email, username, and address
+        // PATCH api/profiles?q={email}
+        // PATCH api/profiles?q={user}
+        // PATCH api/profiles?q={address}
+        [HttpPatch("{id,q}")]
+        public ActionResult<Profiles> Patch([FromQuery] int id, string q, [FromBody] string value)
         {
-            var profile = new Profiles
+            this.db.Profiles.FirstOrDefault(f => f.Id == id);
+            var profile = new Profiles { };
+            if (q == "email")
             {
-                EmailAddress = data.emailAddress,
-                UserName = data.userName,
-                Address = data.address
-            };
+                profile.EmailAddress = value;
+            }
+            else if (q == "address")
+            {
+                profile.Address = value;
+            }
+            else if (q == "user")
+            {
+                profile.UserName = value;
+            }
+            // else
+            // {
+            //     return "wrong parameter in query!";
+            // }
             this.db.Profiles.Add(profile);
             this.db.SaveChanges();
             return profile;
         }
-
-        // TODO fix patch request for profile
-        // TODO possibly add a patch request for email, username, and address
-        // PATCH api/profiles/{id}
-        // [HttpPatch("{id}")]
-        // public Profiles Patch(int id, [FromBody] string value)
-        // {
-        //     var editedValue = this.db.Profiles.Where(f => f.EmailAddress.Contains(value) || f.UserName.Contains(value) || f.Address.Contains(value));
-        //     this.db.SaveChanges(editedValue);
-        //     return editedValue;
-        // }
 
         // DELETE api/profiles/{id}
         [HttpDelete("{id}")]

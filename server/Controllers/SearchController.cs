@@ -18,12 +18,11 @@ namespace capstone.Controllers
             this.db = new DailyMapContext();
         }
 
-        // public class SearchModel
-        // {
-        //     public string emailAddress { get; set; }
-        //     public string userName { get; set; }
-        //     public string address { get; set; }
-        // }
+        public class ResponseObject
+        {
+            public bool WasSuccessful { get; set; }
+            public Object result { get; set; }
+        }
 
         // GET api/search
         [HttpGet]
@@ -33,19 +32,28 @@ namespace capstone.Controllers
             return this.db.Profiles;
         }
 
-        // GET api/search/{id}
-        [HttpGet("{id}")]
-        public ActionResult<Profiles> Get(int id)
+        // GET api/search?q={title}
+        [HttpGet("{q}")]
+        public ActionResult<ResponseObject> Get([FromQuery] string q)
         {
-            // returns first value that matches id
-            return this.db.Profiles.FirstOrDefault(f => f.Id == id);
-        }
-        // GET api/search/{id}
-        [HttpGet("{user}")]
-        public ActionResult<Profiles> Get(string user)
-        {
-            // returns first value that matches id
-            return this.db.Profiles.FirstOrDefault(f => f.UserName == user);
+            var _rv = new ResponseObject
+            {
+                WasSuccessful = true,
+                result = this.db
+                .Profiles
+                .Where(f => f.UserName.Contains(q) || f.EmailAddress.Contains(q))
+                .OrderBy(o => o.UserName),
+            };
+            if (q != null)
+            {
+                return _rv;
+            }
+            else
+            {
+                _rv.WasSuccessful = false;
+                _rv.result = "Question not found";
+                return _rv;
+            }
         }
     }
 }
