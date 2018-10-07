@@ -14,7 +14,7 @@ class MembersList extends Component {
 
   componentDidMount() {
     const PROFILE_URL = "https://localhost:5001/api/profiles";
-    fetch(PROFILE_URL)
+    fetch(PROFILE_URL, {})
       .then(resp => resp.json())
       .then(profileData => {
         this.setState({

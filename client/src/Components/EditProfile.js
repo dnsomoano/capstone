@@ -16,7 +16,7 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
-    const PROFILE_URL = "https://localhost:5001/api/profiles";
+    const PROFILE_URL = "https://localhost:5001/api/profiles/" + this.state.id;
     fetch(PROFILE_URL)
       .then(resp => resp.json())
       .then(profileData => {

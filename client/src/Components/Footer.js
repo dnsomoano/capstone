@@ -3,7 +3,8 @@ import "../styling/Footer.css";
 // import GithubLogo from "../images/Icon-sets/Social-Media-2169/if_social_media_social_media_logo_github_2_2993772.png";
 import GithubAltLogo from "../images/Icon-sets/Social-Media-2169/if_social_media_social_media_logo_github_2993771.png";
 import GMailLogo from "../images/Icon-sets/Gmail/if_16_gmail_email_mail_communication_message_service_2109144.png";
-import LinkedInLogo from "../images/Icon-sets/Outline-Flat-Design/if_linkedin_2106400.png";
+// import LinkedInLogo from "../images/Icon-sets/Outline-Flat-Design/if_linkedin_2106400.png";
+import LinkedInLogo from "../images/Icon-sets/Logotypes/if_square-linkedin_317725.png";
 import MediumLogo from "../images/Icon-sets/Social-Media-2169/if_medium_social_media_logo_2993800.png";
 import MeetUpLogo from "../images/Icon-sets/Social Media & Logos I Flat Colorful/if_5370_-_Meetup_1313549.png";
 // import SlackLogo from "./images/Icon-sets/Social-Media-2169/if_social_media_social_media_logo_slack_2993744.png";
@@ -37,7 +38,7 @@ class Footer extends Component {
               <li>
                 <a
                   href="https://www.linkedin.com/in/daniel-somoano/"
-                  target="_blank"
+                  // target="_blank"
                 >
                   <img
                     src={LinkedInLogo}

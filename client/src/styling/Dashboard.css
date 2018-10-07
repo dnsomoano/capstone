@@ -1,25 +1,29 @@
 /* TODO fix importing of date picker's css for FLEX */
 /* @import "react-datepicker/dist/react-datepicker.css"; */
 
+.dashboard {
+  font-family: "Merriweather", sans;
+}
+
 .account-info {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  color: white;
+  justify-content: flex-end;
+  background-color: #dde2c6;
+  border: 1px outset #999999;
+  border-radius: 0.2em;
+  color: #272932;
 }
 
 .account-box {
   display: flex;
   flex-direction: row;
-  background-color: #222222;
-  border: 1px outset #999999;
-  border-radius: 0.2em;
   padding: 0.5em;
   max-width: 30em;
 }
 
 .profile-picture {
-  border: 1px solid #222222;
+  border: 1px solid #272932;
   border-radius: 0.3em;
   margin: 0.2em;
   height: 4em;
@@ -45,11 +49,24 @@
 .user-buttons-container {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   margin: 0.2em;
 }
 
 .user-buttons {
-  margin: 0.2em;
+  background-color: #4d7ea8;
+  border-radius: 0.3em;
+  color: #e8e8e8;
+  cursor: pointer;
+  font-weight: bolder;
+  margin: 0.5em;
+  height: 2em;
+  width: 8em;
+}
+
+.user-buttons:hover {
+  background-color: #1d5d90;
+  /* opacity: 0.6; */
 }
 
 .map-container {
@@ -63,34 +80,62 @@
 .map-styling {
   display: flex;
   /* flex-shrink: 2; */
-  border: 1px solid black;
+  border: 1px solid #272932;
   height: 40em;
   width: 40em;
-  margin: 0.5em;
+  margin: 2em;
 }
 
 .side-bar {
   display: flex;
   flex-direction: column;
-  margin: 0.5em;
-  margin-bottom: 0.5em;
+  margin: 2em;
+  margin-bottom: 2em;
 }
 
 .add-event-button {
-  background-color: #1d5d90;
+  background-color: #4d7ea8;
   border-radius: 0.3em;
-  color: white;
+  color: #e8e8e8;
+  cursor: pointer;
+  font-weight: bolder;
   margin: 0.5em;
   height: 3em;
   width: 8em;
 }
 
+.add-event-button:hover {
+  background-color: #1d5d90;
+}
+
 .event-list {
   text-decoration: underline;
+  color: #272932;
 }
 
 /* Mobile Devices */
-@media (max-device-width: 1024px) and (min-device-width: 320px) {
+@media (max-device-width: 414px) and (min-device-width: 320px) {
+  .dashboard {
+    font-family: "Merriweather", sans;
+  }
+
+  .account-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #dde2c6;
+    border: 1px outset #999999;
+    border-radius: 0.2em;
+    color: #272932;
+  }
+
+  .account-box {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em;
+    max-width: 20em;
+  }
+
   .map-container {
     display: flex;
     flex-direction: column;
@@ -99,9 +144,57 @@
 
   .map-styling {
     display: flex;
-    border: 1px solid black;
-    height: 29em;
-    width: 29em;
+    border: 1px solid #272932;
+    height: 26em;
+    width: 26em;
+  }
+
+  /* .date-picker {
+    height: 10em;
+    width: 10em;
+  } */
+
+  /* override the datepicker*/
+  .side-bar .react-datepicker__month-container {
+    float: none;
+  }
+}
+
+/* Tablets, iPads, and Kindles */
+@media (max-device-width: 1024px) and (min-device-width: 415px) {
+  .dashboard {
+    font-family: "Merriweather", sans;
+  }
+
+  .account-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #dde2c6;
+    border: 1px outset #999999;
+    border-radius: 0.2em;
+    color: #272932;
+    font-family: "Merriweather", serif;
+  }
+
+  .account-box {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em;
+    max-width: 20em;
+  }
+
+  .map-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .map-styling {
+    display: flex;
+    border: 1px solid #272932;
+    height: 32em;
+    width: 32em;
   }
 
   /* .date-picker {

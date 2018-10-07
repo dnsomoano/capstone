@@ -1,4 +1,16 @@
+/* Font-pairing */
+/* font-family: "Merriweather", serif; */
+/* font-family: "Merriweather", sans; */
+
+/* Color Schema */
+/* #272932 */
+/* #dde2c6 */
+/* #4d7ea8 */
+/* #e8e8e8 */
+/* #bfbfbf */
+
 .App {
+  font-family: "Merriweather", serif;
   text-align: center;
 }
 
@@ -12,10 +24,10 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #222;
+  background-color: #272932;
   height: 55px;
   padding: 10px;
-  color: white;
+  color: #e8e8e8;
 }
 
 .image-container {
@@ -38,9 +50,9 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: #e8e8e8;
   align-items: center;
-  /* margin-bottom: 4em; */
+  padding-bottom: 6em;
   /* max-height: 700px;
   max-width: 414px; */
 }
@@ -64,9 +76,9 @@
 }
 
 .menu-button {
-  background-color: #3e6680;
+  background-color: #4d7ea8;
   /* border: 2px dotted pink; */
-  color: #ffffff;
+  color: #e8e8e8;
   padding: 1em;
   height: 4.6em;
   width: 8em;
@@ -84,16 +96,16 @@
 /* footer special */
 
 .footer-container {
-  background-color: #3e6680;
+  background-color: #4d7ea8;
   padding-top: 3em;
   padding-bottom: 6em;
 }
 
-/* Mobile devices */
-@media (max-device-width: 1024px) and (min-device-width: 320px) {
+/* Mobile Devices */
+@media (max-device-width: 414px) and (min-device-width: 415px) {
   .body {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .main-menu ul {
@@ -105,10 +117,13 @@
 
   .menu-button {
     background-color: #3e6680;
-    /* border: 2px dotted pink; */
-    color: #ffffff;
+    color: #e8e8e8;
     padding: 0.2em;
     height: 4em;
     width: 5em;
   }
 }
+
+/* Tablets, iPads, and Kindles */
+/* @media (max-device-width: 1024px) and (min-device-width: 415px) {
+} */

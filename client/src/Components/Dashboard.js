@@ -51,8 +51,18 @@ class Dashboard extends Component {
         });
       });
     }
-    // this.getGeolocation();
   }
+
+  // component() {
+  //   this.getGeolocation();
+  // }
+
+  getGeolocation = () => {
+    this.setState({
+      latitude: this.props.coords.latitude,
+      longitude: this.props.coords.longitude
+    });
+  };
 
   // TODO fix Get user's geolocation, then render onto map
   // getGeolocation = () => {
@@ -90,10 +100,13 @@ class Dashboard extends Component {
   render() {
     let button = <section>Loading...</section>;
     const positionOnMap = [this.state.latitude, this.state.longitude]; //[this.props.coords.latitude, this.props.coords.longitude];
+    if (!positionOnMap) {
+      this.getGeolocation();
+    }
     if (this.state.authed.isLoggedIn) {
       button = (
-        <section>
-          <section className="account-info">
+        <section className="dashboard">
+          <span className="account-info">
             <section className="account-box">
               <img
                 className="profile-picture"
@@ -117,7 +130,7 @@ class Dashboard extends Component {
                 </section>
               </section>
             </section>
-          </section>
+          </span>
         </section>
       );
     }

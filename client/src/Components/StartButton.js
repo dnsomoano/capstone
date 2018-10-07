@@ -21,7 +21,7 @@ class StartButton extends Component {
         </section>
         <section>
           <Link to="/register">
-            <span class="register-link">Register?</span>
+            <span className="register-link">Register?</span>
           </Link>
         </section>
       </div>

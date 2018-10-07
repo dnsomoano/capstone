@@ -3,8 +3,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #3e6680;
-  color: #e8eddf;
+  background-color: #4d7ea8;
+  color: #e8e8e8;
   font-size: 0.8em;
   /* margin-right: 0.4em; */
 }
@@ -46,17 +46,19 @@
 }
 
 .line {
-  background-color: white;
+  background-color: #e8e8e8;
   border-width: 1px;
   height: 25%;
   width: 25em;
 }
 
 .signature {
+  font-family: "Merriweather", sans;
   margin: 0.2em;
 }
 
-@media (max-device-width: 1024px) and (min-device-width: 320px) {
+/* Mobile Devices */
+@media (max-device-width: 414px) and (min-device-width: 320px) {
   .nav-bar li {
     margin: 0.3em;
   }
@@ -64,12 +66,23 @@
   .icon-style:hover {
     opacity: 0.5;
   }
+
   .line {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
-    border-width: 0px;
+    background-color: #e8e8e8;
+    border-width: 1px;
+    height: 30%;
     width: 20em;
   }
+
+  .signature {
+    font-family: "Merriweather", sans;
+    margin: 0.3em;
+  }
 }
+
+/* Tablets, iPads, and Kindles */
+/* @media (max-device-width: 1024px) and (min-device-width: 415px) {
+} */

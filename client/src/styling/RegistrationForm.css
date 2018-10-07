@@ -23,5 +23,9 @@
 }
 
 /* Mobile Devices */
-/* @media (max-device-width: 1024px) and (min-device-width: 320px) {
+/* @media (max-device-width: 414px) and (min-device-width: 320px) {
+} */
+
+/* Tablets, iPads, and Kindles */
+/* @media (max-device-width: 1024px) and (min-device-width: 415px) {
 } */
