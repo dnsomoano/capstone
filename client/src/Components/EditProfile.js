@@ -30,14 +30,14 @@ class EditProfile extends Component {
   render() {
     return (
       <div>
-        <section className="breadcrumbs-container">
-          <span className="breadcrumb">
-            <Link to="/home" className="link">
-              {/* <img id="home_icon" src={Home} alt="Home Icon" /> */}
-              <button>Home</button>
-            </Link>
-            <span> >> Edit Profile </span>
-          </span>
+        <section className="breadcrumbs">
+          <Link to="/home" className="link">
+            {/* <img id="home_icon" src={Home} alt="Home Icon" /> */}
+            <button className="breadcrumb-button">Home</button>
+          </Link>
+          <button className="directory-button" disabled>
+            Edit Profile
+          </button>
         </section>
         <section>
           {/* TODO display individual profile in input field for user to edit */}

@@ -135,7 +135,7 @@ class Dashboard extends Component {
       );
     }
     return (
-      <div>
+      <div className="dashboard-body">
         {button}
         <section className="map-container">
           <Map

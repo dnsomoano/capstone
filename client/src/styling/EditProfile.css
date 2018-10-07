@@ -1,19 +1,45 @@
-.breadcrumb {
+.breadcrumbs {
   display: flex;
-  justify-content: flex-start;
-  margin: 1em 8em 0 0;
+  flex-direction: row;
+  /* margin: 1em; */
+  padding: 0.3em;
+  /* width: 9em; */
 }
 
-/* #home_icon {
-  margin: 1em 0.5em 0 3em;
-} */
+.breadcrumb-button {
+  border: 1px solid #272932;
+  background-color: #e8e8e8;
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
+  font-size: 0.88em;
+  height: 2.6em;
+  width: 8em;
+  padding: 0.2em;
+  text-decoration: none;
+}
+
+.breadcrumb-button:hover {
+  background-color: #1d5d90;
+}
+
+.directory-button {
+  border: 1px solid #272932;
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+  font-size: 0.88em;
+  height: 2.6em;
+  width: 8em;
+  padding: 0.2em;
+}
 
 link {
+  border: 1px solid #272932;
   margin-right: 0.5em;
+  text-decoration: none;
 }
 
 .form-container {
-  border: 2px double black;
+  border: 2px double #272932;
   display: flex;
   flex-direction: column;
   margin: 0.5em;
@@ -46,7 +72,7 @@ link {
 }
 
 .save-button {
-  background-color: #4d7ea8;
+  background-color: #1d5d90;
   border-radius: 0.3em;
   color: #e8e8e8;
   cursor: pointer;
@@ -58,7 +84,7 @@ link {
 }
 
 .save-button:hover {
-  background-color: #1d5d90;
+  background-color: #4d7ea8;
 }
 
 .delete-button {
@@ -83,4 +109,8 @@ link {
 
 /* Tablets, iPads, and Kindles */
 /* @media (max-device-width: 1024px) and (min-device-width: 415px) {
+} */
+
+/* Large Monitors */
+/* @media (min-device-width: 1025px) {
 } */

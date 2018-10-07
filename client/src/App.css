@@ -6,6 +6,7 @@
 /* #272932 */
 /* #dde2c6 */
 /* #4d7ea8 */
+/* #1d5d90 */
 /* #e8e8e8 */
 /* #bfbfbf */
 
@@ -126,4 +127,8 @@
 
 /* Tablets, iPads, and Kindles */
 /* @media (max-device-width: 1024px) and (min-device-width: 415px) {
+} */
+
+/* Large Monitors */
+/* @media (min-device-width: 1025px) {
 } */

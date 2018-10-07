@@ -1,5 +1,5 @@
 .form-container {
-  border: 2px double black;
+  border: 2px double #272932;
   display: flex;
   flex-direction: column;
   margin: 0.5em;
@@ -28,4 +28,8 @@
 
 /* Tablets, iPads, and Kindles */
 /* @media (max-device-width: 1024px) and (min-device-width: 415px) {
+} */
+
+/* Large Monitors */
+/* @media (min-device-width: 1025px) {
 } */
