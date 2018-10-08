@@ -1,3 +1,20 @@
+https://stackoverflow.com/questions/6370690/media-queries-how-to-target-desktop-tablet-and-mobile
+
+@media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ }
+@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ }
+@media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ }
+@media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
+Refined to work better with 960 grids:
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
 Link to Moqup:
 --------------
 https://app.moqups.com/dnsomoano/Gt5rNyODrw/view
@@ -31,6 +48,14 @@ Doc on react-Leaflet:
 https://react-leaflet.js.org/docs/en/context.html
 Map Example:
 https://github.com/PaulLeCam/react-leaflet/blob/master/example/components/simple.js
+
+Doc on Heroku:
+--------------
+https://devcenter.heroku.com/
+
+Doc on Docker:
+-------------
+https://docs.docker.com/
 
 HeatMap Layer
 -------------

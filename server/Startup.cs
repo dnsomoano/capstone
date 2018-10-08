@@ -19,6 +19,7 @@ namespace capstone
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            new DailyMapContext().Database.Migrate();
         }
 
         public IConfiguration Configuration { get; }
@@ -26,8 +27,12 @@ namespace capstone
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var conn = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? "server=localhost;username=postgres;password=mark;database=DailyMap";
+            services
+                        .AddEntityFrameworkNpgsql()
+                        .AddDbContext<DailyMapContext>(opt =>
+                            opt.UseNpgsql(conn));
             services.AddCors();
-
             services.AddMvc()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
             .AddJsonOptions(

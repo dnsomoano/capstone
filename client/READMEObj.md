@@ -102,3 +102,14 @@ For today, we are going to blogging and practicing everything we have talk about
 
 - [ ] Get caught up on any outstanding homework.
 - [ ] Work on your capstone project
+
+---
+
+# Final Project 4 - #Ship it
+
+With all the work you have been putting into the last 12 weeks, it has all come down to this. Complete your capstone and show it to the world
+
+## Explorer Mode
+
+- [ ] Submit your repository for the capstone project
+- [ ] Submit your Url(s) for your capstone project.
