@@ -27,7 +27,7 @@ namespace capstone
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var conn = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? "server=localhost;username=postgres;password=mark;database=DailyMap";
+            var conn = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? "server=localhost;username=postgres;password=k2#tgl38r9;database=DailyMap";
             services
                         .AddEntityFrameworkNpgsql()
                         .AddDbContext<DailyMapContext>(opt =>

@@ -20,7 +20,7 @@ namespace capstone
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var conn = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? "server=localhost;username=postgres;password=mark;database=DailyMap";
+                var conn = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? "server=localhost;username=postgres;password=k2#tgl38r9;database=DailyMap";
                 optionsBuilder.UseNpgsql(conn);
             }
         }
