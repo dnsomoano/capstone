@@ -8,7 +8,7 @@ class EditProfile extends Component {
     this.state = {
       // id: this.props.match.params.id,
       data: [],
-      id: 1,
+      id: this.props.match.params.id,
       email: "",
       userName: "",
       Address: ""

@@ -25,6 +25,8 @@ class Dashboard extends Component {
     this.state = {
       //   Date: moment(),
       startDate: moment(),
+      data: [],
+      id: 0,
       latitude: 0,
       longitude: 0,
       zoom: 13,
@@ -38,6 +40,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     console.log({ props: this.props });
+    const PROFILE_URL = "https://localhost:5001/api/profiles";
 
     if (auth.isAuthenticated()) {
       auth.getProfile((err, profile) => {
@@ -51,6 +54,20 @@ class Dashboard extends Component {
         });
       });
     }
+    fetch(PROFILE_URL, {
+      // body: JSON.stringify({
+      //   id: this.state.id
+      // })
+    })
+    .then(resp => resp.json())
+    .then(profileData => {
+      this.setState({
+        data: profileData,
+        id: profileData[0].id
+      })
+      console.log(this.state.data);
+      console.log(profileData[0].id);
+    });
   }
 
   // component() {
@@ -124,7 +141,7 @@ class Dashboard extends Component {
                   <Link to="/members">
                     <button className="user-buttons">Members List</button>
                   </Link>
-                  <Link to="/profile/:id">
+                  <Link to={`/profile/${this.state.id}`}>
                     <button className="user-buttons">Edit Profile</button>
                   </Link>
                 </section>
@@ -160,7 +177,7 @@ class Dashboard extends Component {
               selected={this.state.startDate}
               onChange={this.handleChange}
             />
-            <Link to="/new_event">
+            <Link to={`/new_event/${this.state.id}`}>
               <button className="add-event-button">Add Event</button>
             </Link>
             <section>

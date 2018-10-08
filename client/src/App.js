@@ -41,9 +41,8 @@ class App extends Component {
               <Route path="/register" exact component={RegistrationForm} />
               <Route path="/home" exact component={Dashboard} />
               <Route path="/members" exact component={MembersList} />
-              {/* TODO fix to pass id as props */}
               <Route path="/profile/:id" exact component={EditProfile} />
-              <Route path="/new_event" exact component={EventForm} />
+              <Route path="/new_event/:id" exact component={EventForm} />
               <Route
                 path="/callback"
                 render={props => {

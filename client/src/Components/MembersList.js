@@ -7,8 +7,6 @@ class MembersList extends Component {
     super(props);
     this.state = {
       data: [],
-      email: "",
-      userName: ""
     };
   }
 
@@ -52,12 +50,24 @@ class MembersList extends Component {
           {/* TODO profile clickable for userdetails? */}
           {this.state.data.map((profile, i) => {
             return (
-              <section>
-                {profile.emailAddress}
-                <section>{profile.userName}</section>
-                <section>{profile.dateCreated}</section>
-                <section>{profile.address}</section>
-              </section>
+              <table className="table-body">
+                <thead>
+                  <tr>
+                    <td>Email Address:</td>
+                    <td>Username:</td>
+                    <td>Date Registered:</td>
+                    <td>Address:</td>
+                  </tr>
+                </thead>
+                <tbody className="table-body">
+                  <tr key={i} className="table-row">
+                    <td className="table-column">{profile.emailAddress}</td>
+                    <td className="table-column">{profile.userName}</td>
+                    <td className="table-column">{profile.dateCreated}</td>
+                    <td className="table-column">{profile.address}</td>
+                  </tr>
+                </tbody>
+              </table>
             );
           })}
         </section>

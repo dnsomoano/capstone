@@ -3,6 +3,26 @@ import "../styling/EventForm.css";
 import { Link } from "react-router-dom";
 
 class EventForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.match.id
+    };
+  }
+
+  componentDidMount() {
+    const PROFILE_URL = "https://localhost:5001/api/events" + this.state.id;
+    fetch(PROFILE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({})
+    })
+      .then(resp => resp.json())
+      .then(eventData => {
+
+      });
+  }
+
   render() {
     return (
       <div>
