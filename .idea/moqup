@@ -28,6 +28,10 @@ Doc on Auth0:
 https://auth0.com/docs/quickstart/spa/react
 https://auth0.com/docs/quickstart/spa/vuejs
 
+Doc on Auth0 in Backend:
+-----------------------
+https://auth0.com/docs/quickstart/backend/aspnet-core-webapi
+
 Doc on react-geolocated:
 -----------------------
 https://www.npmjs.com/package/react-geolocated
@@ -56,6 +60,7 @@ https://devcenter.heroku.com/
 Doc on Docker:
 -------------
 https://docs.docker.com/
+https://docs.docker.com/docker-for-windows/
 
 HeatMap Layer
 -------------
