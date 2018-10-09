@@ -4,13 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProfilesController : ControllerBase
     {
+        private string _getUserId(System.Security.Claims.ClaimsPrincipal user)
+        {
+            var userId = user.Claims.First(f => f.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            return userId;
+        }
+
         public DailyMapContext db { get; set; }
 
         public ProfilesController()
@@ -25,13 +33,23 @@ namespace capstone.Controllers
             public string address { get; set; }
         }
 
-        // GET api/profiles
         [HttpGet]
-        public ActionResult<IEnumerable<Profiles>> Get()
+        public IOrderedQueryable<Profiles> Get()
         {
-            // returns all profiles
-            return this.db.Profiles;
-        }
+            var _userId = _getUserId(User);
+            var events = this.db.Profiles.Where(w => w.UserId == _userId).OrderBy(o => o.Events)
+            .ThenBy(t => t.DateCreated);
+            return events;
+
+        }//END
+
+        // GET api/profiles
+        // [HttpGet]
+        // public ActionResult<IEnumerable<Profiles>> Get()
+        // {
+        //     // returns all profiles
+        //     return this.db.Profiles;
+        // }//END
 
         // GET api/profiles/{id}
         [HttpGet("{id}")]
@@ -39,18 +57,18 @@ namespace capstone.Controllers
         {
             // returns first value that matches id
             return this.db.Profiles.FirstOrDefault(f => f.Id == id);
-        }
+        }//END
 
         // TODO fix input for email and username, address works fine.
         // POST api/profiles
-        // [HttpPost]
-        // public ActionResult<Profiles> Post([FromQuery] string q, [FromBody] string value)
-        // {
-        //     var profile = new Profiles { };
-        //     this.db.Profiles.Add(profile);
-        //     this.db.SaveChanges();
-        //     return profile;
-        // }
+        [HttpPost]
+        public Profiles Post([FromBody] string value)
+        {
+            var profile = new Profiles { };
+            this.db.Profiles.Add(profile);
+            this.db.SaveChanges();
+            return profile;
+        }//END
 
         // TODO fix patch request for profile
         // TODO possibly add a patch request for email, username, and address

@@ -4,13 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EventsController : ControllerBase
     {
+        private string _getUserId(System.Security.Claims.ClaimsPrincipal user)
+        {
+            var userId = user.Claims.First(f => f.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            return userId;
+        }
         public DailyMapContext db { get; set; }
 
         public EventsController()
@@ -26,19 +33,34 @@ namespace capstone.Controllers
 
         // GET api/events
         [HttpGet]
-        public ActionResult<IEnumerable<Events>> Get()
+        public IOrderedQueryable<Profiles> Get()
         {
-            // returns all events
-            return this.db.Events;
-        }
+            var _userId = _getUserId(User);
+            var events = this.db.Profiles.Where(w => w.UserId == _userId).OrderBy(o => o.Events)
+            .ThenByDescending(t => t.DateCreated);
+            return events;
 
-        // GET api/events/{id}
-        [HttpGet("{id}")]
-        public ActionResult<Events> Get(int id)
-        {
-            // returns first value that matches id
-            return this.db.Events.FirstOrDefault(f => f.Id == id);
-        }
+        }//END
+
+        // [HttpPost]
+        // public Events Post([FromBody] Events event)
+        // {
+        //     var _userId = _getUserId(User);
+        //     event.ProfileId = _userId;
+        //     this.db.Events.Add(place);
+        //     this.db.SaveChanges();
+        //     return place;
+
+
+        // }//END 
+
+        // // GET api/events/{id}
+        // [HttpGet("{id}")]
+        // public ActionResult<Events> Get(int id)
+        // {
+        //     // returns first value that matches id
+        //     return this.db.Events.FirstOrDefault(f => f.Id == id);
+        // }
 
         // TODO fix input for name and location, plus time start and end.
         // POST api/events

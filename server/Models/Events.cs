@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace capstone.Models
 {
@@ -13,6 +14,8 @@ namespace capstone.Models
         public double EventLongitude { get; set; }
         public bool IsFinished { get; set; }
         public int ProfilesId { get; set; }
-        public virtual Profiles Profiles { get; set; }
+
+        [ForeignKey("ProfilesId")]
+        public Profiles Profiles { get; set; }
     }
 }

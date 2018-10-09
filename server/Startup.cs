@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,20 @@ namespace capstone
                         .AddEntityFrameworkNpgsql()
                         .AddDbContext<DailyMapContext>(opt =>
                             opt.UseNpgsql(conn));
+
+            // 1. Add Authentication Services
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://dnsomoano.auth0.com/";
+                options.Audience = "https://daily-map.com/api/profiles";
+            });
+
+            //
             services.AddCors();
             services.AddMvc()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -60,6 +75,9 @@ namespace capstone
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
+            //
+            app.UseAuthentication();
+            //
             app.UseMvc();
         }
     }
