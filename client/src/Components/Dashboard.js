@@ -30,7 +30,9 @@ class Dashboard extends Component {
       latitude: 0,
       longitude: 0,
       zoom: 13,
-      events: [],
+      name: "",
+      address: "",
+      // isFinished: false,
       authed: {
         isLoggedIn: false
       }
@@ -40,9 +42,8 @@ class Dashboard extends Component {
 
   componentDidMount() {
     console.log({ props: this.props });
-    const PROFILE_URL = "https://localhost:5001/api/profiles";
-
     if (auth.isAuthenticated()) {
+      this.getLatest();
       auth.getProfile((err, profile) => {
         this.setState({
           // latitude: this.props.coords.latitude,
@@ -54,32 +55,63 @@ class Dashboard extends Component {
         });
       });
     }
-    fetch(PROFILE_URL, {
-      // body: JSON.stringify({
-      //   id: this.state.id
-      // })
-    })
-    .then(resp => resp.json())
-    .then(profileData => {
-      this.setState({
-        data: profileData,
-        id: profileData[0].id
-      })
-      console.log(this.state.data);
-      console.log(profileData[0].id);
-    });
   }
 
-  // component() {
-  //   this.getGeolocation();
-  // }
+  getLatest = () => {
+    const PROFILE_URL = "https://localhost:5001/api/events";
 
-  getGeolocation = () => {
+    fetch(PROFILE_URL, {
+      headers: {
+        Authorization: "Bearer " + auth.getAccessToken()
+      }
+    })
+      .then(resp => resp.json())
+      .then(eventsData => {
+        this.setState({
+          data: eventsData
+          // id: profileData[0].id
+        });
+        console.log(this.state.data);
+        // console.log(profileData[0].id);
+      });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    fetch("https://localhost:5001/api/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + auth.getAccessToken()
+      },
+      body: JSON.stringify({
+        EventName: this.state.name,
+        EventAddress: this.state.address,
+        // IsFinished: this.state.isFinished
+      })
+    })
+      .then(resp => resp.json())
+      .then(_ => {
+        this.setState({
+          name: "",
+          address: "",
+        });
+        this.getLatest();
+      });
+  };
+
+  handleChange = e => {
     this.setState({
-      latitude: this.props.coords.latitude,
-      longitude: this.props.coords.longitude
+      [e.target.name]: e.target.value
     });
   };
+
+  // getGeolocation = () => {
+  //   this.setState({
+  //     latitude: this.props.coords.latitude,
+  //     longitude: this.props.coords.longitude
+  //   });
+  // };
 
   // TODO fix Get user's geolocation, then render onto map
   // getGeolocation = () => {
@@ -108,7 +140,7 @@ class Dashboard extends Component {
   };
 
   // Handles date change for the calendar
-  handleChange(date) {
+  handleDateChange(date) {
     this.setState({
       startDate: moment().format("YYYY-MM-DD")
     });
@@ -117,9 +149,9 @@ class Dashboard extends Component {
   render() {
     let button = <section>Loading...</section>;
     const positionOnMap = [this.state.latitude, this.state.longitude]; //[this.props.coords.latitude, this.props.coords.longitude];
-    if (!positionOnMap) {
-      this.getGeolocation();
-    }
+    // if (!positionOnMap) {
+    //   this.getGeolocation();
+    // }
     if (this.state.authed.isLoggedIn) {
       button = (
         <section className="dashboard">
@@ -154,6 +186,27 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-body">
         {button}
+        <section>
+          <form onSubmit={this.handleSubmit}>
+            <section className="row">
+              <header className="field-header">Name of Event:</header>
+              <input type="text" name="name" placeholder="name of event" />
+            </section>
+            <section className="row">
+              <header className="field-header">Location:</header>
+              <input type="text" name="address" placeholder="location of event" />
+            </section>
+            <section className="row">
+              <header className="field-header">Time Start:</header>
+              <input type="text" placeholder="0:00" />
+            </section>
+            <section className="row">
+              <header className="field-header">Time End:</header>
+              <input type="text" placeholder="0:00" />
+            </section>
+            <button>Submit</button>
+          </form>
+        </section>
         <section className="map-container">
           <Map
             center={positionOnMap}
@@ -175,16 +228,16 @@ class Dashboard extends Component {
               className="date-picker"
               inline
               selected={this.state.startDate}
-              onChange={this.handleChange}
+              onChange={this.handleDateChange}
             />
-            <Link to={`/new_event/${this.state.id}`}>
+            <Link to={`/new_event/${this.state.authed.isLoggedIn}`}>
               <button className="add-event-button">Add Event</button>
             </Link>
             <section>
               <header className="event-list">Events of the Day</header>
               <section>
-                {this.state.events.map((event, i) => {
-                  return <button key={i}>{event}</button>;
+                {this.state.data.map((event, i) => {
+                  return <button key={i}>evet:{event.eventName}</button>;
                 })}
               </section>
             </section>

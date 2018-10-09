@@ -25,34 +25,25 @@ namespace capstone.Controllers
             this.db = new DailyMapContext();
         }
 
-        public class EventsModel
-        {
-            public string name { get; set; }
-            public string address { get; set; }
-        }
-
         // GET api/events
         [HttpGet]
-        public IOrderedQueryable<Profiles> Get()
+        public IOrderedQueryable<Events> Get()
         {
             var _userId = _getUserId(User);
-            var events = this.db.Profiles.Where(w => w.UserId == _userId).OrderBy(o => o.Events)
-            .ThenByDescending(t => t.DateCreated);
+            var events = this.db.Events.Where(w => w.UserId == _userId).OrderByDescending(o => o.DateCreated);
             return events;
 
         }//END
 
-        // [HttpPost]
-        // public Events Post([FromBody] Events event)
-        // {
-        //     var _userId = _getUserId(User);
-        //     event.ProfileId = _userId;
-        //     this.db.Events.Add(place);
-        //     this.db.SaveChanges();
-        //     return place;
-
-
-        // }//END 
+        [HttpPost]
+        public Events Post([FromBody] Events evt)
+        {
+            var _userId = _getUserId(User);
+            evt.UserId = _userId;
+            this.db.Events.Add(evt);
+            this.db.SaveChanges();
+            return evt;
+        }//END 
 
         // // GET api/events/{id}
         // [HttpGet("{id}")]
@@ -88,10 +79,9 @@ namespace capstone.Controllers
         //     return editedValue;
         // }
 
-        // TODO fix DELETE for events, maybe change params using event name
         // DELETE api/events/{id}
         // [HttpDelete("{id}")]
-        // public ActionResult<IEnumerable<Events>> Delete(int id)
+        // public ActionResult<Events> Delete(int id)
         // {
         //     var event = this.db.Events.FirstOrDefault(f => f.Id == id);
         //     this.db.Events.Remove(event);

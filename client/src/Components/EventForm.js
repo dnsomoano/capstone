@@ -1,27 +1,59 @@
 import React, { Component } from "react";
 import "../styling/EventForm.css";
 import { Link } from "react-router-dom";
+import Auth from "../Auth/Auth.js";
+
+const auth = new Auth();
 
 class EventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.match.id
+      id: 0,
+      eventName: "",
+      // timeStart: new DateTime,
+      // timeEnd: new DateTime,
+      eventAddress: "",
+      isFinished: false,
+      // authed: {
+      //   isLoggedIn: this.props.match.params.authed.isLoggedIn
+      // }
     };
   }
 
   componentDidMount() {
-    const PROFILE_URL = "https://localhost:5001/api/events" + this.state.id;
-    fetch(PROFILE_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({})
-    })
-      .then(resp => resp.json())
-      .then(eventData => {
-
+    console.log({ props: this.props });
+    if (auth.isAuthenticated()) {
+      this.getLatest();
+      auth.getProfile((err, profile) => {
+        this.setState({
+          // latitude: this.props.coords.latitude,
+          // longitude: this.props.coords.longitude,
+          authed: {
+            isLoggedIn: true,
+            profile
+          }
+        });
       });
+    }
+
   }
+
+getLatest = () => {
+  const PROFILE_URL = "https://localhost:5001/api/events" + this.state.id;
+  fetch(PROFILE_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(resp => resp.json())
+    .then(eventData => {});
+}
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
 
   render() {
     return (

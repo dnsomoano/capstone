@@ -43,7 +43,7 @@ namespace capstone
             }).AddJwtBearer(options =>
             {
                 options.Authority = "https://dnsomoano.auth0.com/";
-                options.Audience = "https://daily-map.com/api/profiles";
+                options.Audience = "https://daily-map.com.api";
             });
 
             //

@@ -8,6 +8,7 @@ export default class Auth {
     domain: "dnsomoano.auth0.com",
     clientID: "ET2nozoqZH284365rt0JIBz9PY6HipW0",
     redirectUri: "http://localhost:3000/callback",
+    audience: 'https://daily-map.com.api',
     responseType: "token id_token",
     scope: "openid profile"
   });
@@ -17,6 +18,7 @@ export default class Auth {
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.getProfile = this.getProfile.bind(this);
   }
 
   handleAuthentication() {
