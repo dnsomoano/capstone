@@ -71,10 +71,10 @@ class Dashboard extends Component {
     })
       .then(resp => resp.json())
       .then(eventsData => {
-        this.setState({ data: eventsData });
-        // id: profileData[0].id
+        this.setState({
+          data: eventsData
+        });
         console.log(this.state.data);
-        // console.log(profileData[0].id);
       });
   };
 
@@ -156,14 +156,14 @@ class Dashboard extends Component {
                     not you?
                   </button>
                 </section>
-                <section className="user-buttons-container">
+                {/* <section className="user-buttons-container">
                   <Link to="/members">
                     <button className="user-buttons">Members List</button>
                   </Link>
                   <Link to={`/profile/${this.state.id}`}>
                     <button className="user-buttons">Edit Profile</button>
                   </Link>
-                </section>
+                </section> */}
               </section>
             </section>
           </span>
@@ -230,10 +230,9 @@ class Dashboard extends Component {
               <section>
                 {this.state.data.map((event, i) => {
                   return (
-                    <button>
-                      <section key={i}>{event.EventName}</section>
-                      <section>{event.EventAddress}</section>
-                    </button>
+                    <section className="single-event" key={i}>
+                      <button>{event.EventName}</button>
+                    </section>
                   );
                 })}
               </section>
