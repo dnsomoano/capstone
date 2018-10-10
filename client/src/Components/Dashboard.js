@@ -69,10 +69,8 @@ class Dashboard extends Component {
       .then(eventsData => {
         this.setState({
           data: eventsData
-          // id: profileData[0].id
         });
         console.log(this.state.data);
-        // console.log(profileData[0].id);
       });
   };
 
@@ -86,7 +84,7 @@ class Dashboard extends Component {
       },
       body: JSON.stringify({
         EventName: this.state.name,
-        EventAddress: this.state.address,
+        EventAddress: this.state.address
         // IsFinished: this.state.isFinished
       })
     })
@@ -94,7 +92,7 @@ class Dashboard extends Component {
       .then(_ => {
         this.setState({
           name: "",
-          address: "",
+          address: ""
         });
         this.getLatest();
       });
@@ -106,18 +104,20 @@ class Dashboard extends Component {
     });
   };
 
-  // getGeolocation = () => {
-  //   this.setState({
-  //     latitude: this.props.coords.latitude,
-  //     longitude: this.props.coords.longitude
-  //   });
-  // };
+  //   getGeolocation = e => {
+  //     navigator.geolocation.getCurrentPosition = (position) => {
+  //       console.log(position);
+
+  //       let latitude = position.coords.latitude;
+  //       let longitude = position.coords.longitude;
+  //   }
+  // }
 
   // TODO fix Get user's geolocation, then render onto map
-  // getGeolocation = () => {
+  // getGeolocation = e => {
   //   if (!this.props.isGeolocationEnabled) {
-  //     this.props.geolocation.getCurrentPosition(position => {
-  //       console.log(position.coords.latitude, position.coords.longitude);
+  //     // this.props.geolocation.getCurrentPosition(position => {
+  //     //   console.log(position.coords.latitude, position.coords.longitude);
   //       this.setState({
   //         latitude: position.coords.latitude,
   //         longitude: position.coords.longitude
@@ -146,6 +146,12 @@ class Dashboard extends Component {
     });
   }
 
+getLocation = (e) => {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    console.log(position.coords.latitude, position.coords.longitude);
+  })
+}
+
   render() {
     let button = <section>Loading...</section>;
     const positionOnMap = [this.state.latitude, this.state.longitude]; //[this.props.coords.latitude, this.props.coords.longitude];
@@ -169,14 +175,14 @@ class Dashboard extends Component {
                     not you?
                   </button>
                 </section>
-                <section className="user-buttons-container">
+                {/* <section className="user-buttons-container">
                   <Link to="/members">
                     <button className="user-buttons">Members List</button>
                   </Link>
                   <Link to={`/profile/${this.state.id}`}>
                     <button className="user-buttons">Edit Profile</button>
                   </Link>
-                </section>
+                </section> */}
               </section>
             </section>
           </span>
@@ -194,7 +200,11 @@ class Dashboard extends Component {
             </section>
             <section className="row">
               <header className="field-header">Location:</header>
-              <input type="text" name="address" placeholder="location of event" />
+              <input
+                type="text"
+                name="address"
+                placeholder="location of event"
+              />
             </section>
             <section className="row">
               <header className="field-header">Time Start:</header>
@@ -212,6 +222,7 @@ class Dashboard extends Component {
             center={positionOnMap}
             zoom={this.state.zoom}
             className="map-styling"
+            onClick={this.getLocation}
           >
             <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -237,7 +248,11 @@ class Dashboard extends Component {
               <header className="event-list">Events of the Day</header>
               <section>
                 {this.state.data.map((event, i) => {
-                  return <button key={i}>evet:{event.eventName}</button>;
+                  return (
+                    <section className="single-event" key={i}>
+                      <button>{event.EventName}</button>
+                    </section>
+                  );
                 })}
               </section>
             </section>
