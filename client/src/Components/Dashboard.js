@@ -80,7 +80,7 @@ class Dashboard extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch("https://localhost:5001/api/events", {
+    fetch(`${process.env.REACT_APP_API}/api/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

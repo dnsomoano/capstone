@@ -10,6 +10,7 @@ class StartButton extends Component {
   };
 
   render() {
+    console.log(process.env)
     return (
       <div>
         <section className="button-container">

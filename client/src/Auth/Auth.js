@@ -7,7 +7,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: "dnsomoano.auth0.com",
     clientID: "ET2nozoqZH284365rt0JIBz9PY6HipW0",
-    redirectUri: "http://localhost:3000/callback",
+    redirectUri: `${process.env.REACT_APP_URL.trim()}/callback`,
     audience: "https://daily-map.com.api",
     responseType: "token id_token",
     scope: "openid profile"
