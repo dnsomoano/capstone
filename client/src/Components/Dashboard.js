@@ -3,7 +3,7 @@ import "../styling/Dashboard.css";
 import Auth from "../Auth/Auth.js";
 // import { fetchingPosition, getCurrentPosition } from "react-geolocation";
 import { Link } from "react-router-dom";
-// import { geolocated } from "react-geolocated";
+// import { Geocoder, Providers } from "node-geocoder";
 import {
   // FeatureGroup,
   Map,
@@ -38,6 +38,11 @@ class Dashboard extends Component {
       authed: {
         isLoggedIn: false
       }
+      // options: {
+      //   Providers: "openstreetmaps",
+      //   httpAdapter: "https",
+      //   formatter: null
+      // }
     };
     this.handleChange = this.handleChange.bind(this);
     this.getLocation(null); // initiate GPS position call
@@ -92,7 +97,6 @@ class Dashboard extends Component {
         EventAddress: this.state.address,
         Latitude: this.state.latitude,
         Longitude: this.state.longitude
-        // IsFinished: this.state.isFinished
       })
     })
       .then(resp => resp.json())
@@ -137,7 +141,8 @@ class Dashboard extends Component {
     let button = <section>Loading...</section>;
     const positionOnMap = [this.state.latitude, this.state.longitude];
     //[this.props.coords.latitude, this.props.coords.longitude];
-
+    // let geocoder = NodeGeocoder(this.state.options);
+    // geocoder.geocode()
     if (this.state.authed.isLoggedIn) {
       button = (
         <section className="dashboard">
@@ -176,7 +181,10 @@ class Dashboard extends Component {
           <form onSubmit={this.handleSubmit}>
             <section className="row">
               <header className="field-header">Name of Event:</header>
-              <input type="text" name="name" placeholder="name of event" />
+              <input type="text" name="name" 
+              placeholder="name of event" 
+              // value={this.state.name} 
+              onChange={this.handleChange} />
             </section>
             <section className="row">
               <header className="field-header">Location:</header>
@@ -184,6 +192,8 @@ class Dashboard extends Component {
                 type="text"
                 name="address"
                 placeholder="location of event"
+                // value={this.state.address}
+                onChange={this.handleChange}
               />
             </section>
             <section className="row">
@@ -230,7 +240,7 @@ class Dashboard extends Component {
                 {this.state.data.map((event, i) => {
                   return (
                     <section className="single-event" key={i}>
-                      <button>{event.EventName}</button>
+                      <button className="event-button">{event.EventName}</button>
                     </section>
                   );
                 })}
