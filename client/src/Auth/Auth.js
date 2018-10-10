@@ -8,7 +8,7 @@ export default class Auth {
     domain: "dnsomoano.auth0.com",
     clientID: "ET2nozoqZH284365rt0JIBz9PY6HipW0",
     redirectUri: "http://localhost:3000/callback",
-    audience: 'https://daily-map.com.api',
+    audience: "https://daily-map.com.api",
     responseType: "token id_token",
     scope: "openid profile"
   });
@@ -42,7 +42,7 @@ export default class Auth {
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);
     // navigate to the home route
-    history.replace("/home");
+    // history.replace("/home");
   }
 
   login() {

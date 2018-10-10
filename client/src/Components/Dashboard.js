@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "../styling/Dashboard.css";
 import Auth from "../Auth/Auth.js";
-
+// import { fetchingPosition, getCurrentPosition } from "react-geolocation";
 import { Link } from "react-router-dom";
-import { geolocated } from "react-geolocated";
+// import { geolocated } from "react-geolocated";
 import {
   // FeatureGroup,
   Map,
@@ -27,9 +27,11 @@ class Dashboard extends Component {
       startDate: moment(),
       data: [],
       id: 0,
-      latitude: 0,
-      longitude: 0,
+      NewLat: 0,
+      NewLong: 0,
       zoom: 13,
+      latitude: 27.964157, // default to Tampa, FL
+      longitude: -82.452606, // with these coordinates
       name: "",
       address: "",
       // isFinished: false,
@@ -38,6 +40,7 @@ class Dashboard extends Component {
       }
     };
     this.handleChange = this.handleChange.bind(this);
+    this.getLocation(null); // initiate GPS position call
   }
 
   componentDidMount() {
@@ -62,15 +65,14 @@ class Dashboard extends Component {
 
     fetch(PROFILE_URL, {
       headers: {
-        Authorization: "Bearer " + auth.getAccessToken()
+        Authorization: "Bearer " + auth.getAccessToken(),
+        mode: "no-cors"
       }
     })
       .then(resp => resp.json())
       .then(eventsData => {
-        this.setState({
-          data: eventsData
-          // id: profileData[0].id
-        });
+        this.setState({ data: eventsData });
+        // id: profileData[0].id
         console.log(this.state.data);
         // console.log(profileData[0].id);
       });
@@ -82,11 +84,12 @@ class Dashboard extends Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + auth.getAccessToken()
+        Authorization: "Bearer " + auth.getAccessToken(),
+        mode: "no-cors"
       },
       body: JSON.stringify({
         EventName: this.state.name,
-        EventAddress: this.state.address,
+        EventAddress: this.state.address
         // IsFinished: this.state.isFinished
       })
     })
@@ -94,8 +97,9 @@ class Dashboard extends Component {
       .then(_ => {
         this.setState({
           name: "",
-          address: "",
+          address: ""
         });
+        console.log(this.state.name);
         this.getLatest();
       });
   };
@@ -105,30 +109,6 @@ class Dashboard extends Component {
       [e.target.name]: e.target.value
     });
   };
-
-  // getGeolocation = () => {
-  //   this.setState({
-  //     latitude: this.props.coords.latitude,
-  //     longitude: this.props.coords.longitude
-  //   });
-  // };
-
-  // TODO fix Get user's geolocation, then render onto map
-  // getGeolocation = () => {
-  //   if (!this.props.isGeolocationEnabled) {
-  //     this.props.geolocation.getCurrentPosition(position => {
-  //       console.log(position.coords.latitude, position.coords.longitude);
-  //       this.setState({
-  //         latitude: position.coords.latitude,
-  //         longitude: position.coords.longitude
-  //       });
-  //     });
-  //   } else if (!geolocated.isGeolocationAvailable) {
-  //     console.log("Geolocation is not available");
-  //   } else {
-  //     console.log("Geolocation not enabled");
-  //   }
-  // };
 
   // Handles login & logout
   login = () => {
@@ -146,12 +126,19 @@ class Dashboard extends Component {
     });
   }
 
+  getLocation = e => {
+    navigator.geolocation.getCurrentPosition(position => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+    });
+  };
+
   render() {
     let button = <section>Loading...</section>;
     const positionOnMap = [this.state.latitude, this.state.longitude]; //[this.props.coords.latitude, this.props.coords.longitude];
-    // if (!positionOnMap) {
-    //   this.getGeolocation();
-    // }
+
     if (this.state.authed.isLoggedIn) {
       button = (
         <section className="dashboard">
@@ -194,7 +181,11 @@ class Dashboard extends Component {
             </section>
             <section className="row">
               <header className="field-header">Location:</header>
-              <input type="text" name="address" placeholder="location of event" />
+              <input
+                type="text"
+                name="address"
+                placeholder="location of event"
+              />
             </section>
             <section className="row">
               <header className="field-header">Time Start:</header>
@@ -212,6 +203,7 @@ class Dashboard extends Component {
             center={positionOnMap}
             zoom={this.state.zoom}
             className="map-styling"
+            onClick={this.getLocation}
           >
             <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -237,7 +229,12 @@ class Dashboard extends Component {
               <header className="event-list">Events of the Day</header>
               <section>
                 {this.state.data.map((event, i) => {
-                  return <button key={i}>evet:{event.eventName}</button>;
+                  return (
+                    <button>
+                      <section key={i}>{event.EventName}</section>
+                      <section>{event.EventAddress}</section>
+                    </button>
+                  );
                 })}
               </section>
             </section>
@@ -249,9 +246,10 @@ class Dashboard extends Component {
   }
 }
 
-export default geolocated({
-  positionOptions: {
-    enableHighAccuracy: false
-  },
-  userDecisionTimeout: 5000
-})(Dashboard);
+export default Dashboard;
+// geolocated({
+//   positionOptions: {
+//     enableHighAccuracy: false
+//   },
+//   userDecisionTimeout: 5000
+// })(Dashboard);
