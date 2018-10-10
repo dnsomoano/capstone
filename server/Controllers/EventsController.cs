@@ -80,13 +80,13 @@ namespace capstone.Controllers
         // }
 
         // DELETE api/events/{id}
-        // [HttpDelete("{id}")]
-        // public ActionResult<Events> Delete(int id)
-        // {
-        //     var event = this.db.Events.FirstOrDefault(f => f.Id == id);
-        //     this.db.Events.Remove(event);
-        //     this.db.SaveChanges();
-        //     return this.db.Events;
-        // }
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var evt = this.db.Events.FirstOrDefault(f => f.Id == id);
+            this.db.Events.Remove(evt);
+            this.db.SaveChanges();
+            return Ok(new { success = true });
+        }
     }
 }
