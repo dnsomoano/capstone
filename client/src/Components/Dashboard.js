@@ -65,8 +65,8 @@ class Dashboard extends Component {
 
     fetch(PROFILE_URL, {
       headers: {
-        Authorization: "Bearer " + auth.getAccessToken(),
-        mode: "no-cors"
+        Authorization: "Bearer " + auth.getAccessToken()
+        // mode: "no-cors"
       }
     })
       .then(resp => resp.json())
@@ -84,21 +84,19 @@ class Dashboard extends Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + auth.getAccessToken(),
-        mode: "no-cors"
+        Authorization: "Bearer " + auth.getAccessToken()
+        // mode: "no-cors"
       },
       body: JSON.stringify({
         EventName: this.state.name,
-        EventAddress: this.state.address
+        EventAddress: this.state.address,
+        Latitude: this.state.latitude,
+        Longitude: this.state.longitude
         // IsFinished: this.state.isFinished
       })
     })
       .then(resp => resp.json())
       .then(_ => {
-        this.setState({
-          name: "",
-          address: ""
-        });
         console.log(this.state.name);
         this.getLatest();
       });
@@ -137,7 +135,8 @@ class Dashboard extends Component {
 
   render() {
     let button = <section>Loading...</section>;
-    const positionOnMap = [this.state.latitude, this.state.longitude]; //[this.props.coords.latitude, this.props.coords.longitude];
+    const positionOnMap = [this.state.latitude, this.state.longitude];
+    //[this.props.coords.latitude, this.props.coords.longitude];
 
     if (this.state.authed.isLoggedIn) {
       button = (
