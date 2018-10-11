@@ -34,18 +34,13 @@ class Dashboard extends Component {
       longitude: -82.452606, // with these coordinates
       name: "",
       address: "",
-      // isFinished: false,
+      lat2: 0,
+      long2: 0,
       authed: {
         isLoggedIn: false
       }
-      // options: {
-      //   Providers: "openstreetmaps",
-      //   httpAdapter: "https",
-      //   formatter: null
-      // }
     };
     this.handleChange = this.handleChange.bind(this);
-    this.getLocation(null); // initiate GPS position call
   }
 
   componentDidMount() {
@@ -54,8 +49,6 @@ class Dashboard extends Component {
       this.getLatest();
       auth.getProfile((err, profile) => {
         this.setState({
-          // latitude: this.props.coords.latitude,
-          // longitude: this.props.coords.longitude,
           authed: {
             isLoggedIn: true,
             profile
@@ -66,7 +59,7 @@ class Dashboard extends Component {
   }
 
   getLatest = () => {
-    const PROFILE_URL = "https://localhost:5001/api/events";
+    const PROFILE_URL = `${process.env.REACT_APP_API}/api/events`;
 
     fetch(PROFILE_URL, {
       headers: {
@@ -85,7 +78,8 @@ class Dashboard extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API}/api/events`, {
+    console.log(`${process.env.REACT_APP_API.trim()}/api/events`);
+    fetch(`${process.env.REACT_APP_API.trim()}/api/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,14 +88,22 @@ class Dashboard extends Component {
       },
       body: JSON.stringify({
         EventName: this.state.name,
-        EventAddress: this.state.address,
-        Latitude: this.state.latitude,
-        Longitude: this.state.longitude
+        EventAddress: this.state.address
+        // Latitude: this.state.latitude,
+        // Longitude: this.state.longitude
       })
     })
-      .then(resp => resp.json())
+      .then(resp => {
+        console.log("got back");
+        return resp.json();
+      })
       .then(_ => {
-        console.log(this.state.name);
+        console.log({ _ });
+        if (this.state.address) {
+          this.getGeo();
+        } else {
+          this.getLocation(null); // initiate GPS position call
+        }
         this.getLatest();
       });
   };
@@ -128,7 +130,25 @@ class Dashboard extends Component {
     });
   }
 
-  getLocation = e => {
+  getGeo = () => {
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address= + ${
+        this.state.address
+      } + &key=AIzaSyA5-V3BEWeNq_lasnMAL8Bip0_bbvSr03U`
+    )
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data.results[0].geometry.location);
+        console.log(data.results[0].geometry.location.lat);
+        console.log(typeof data.results[0].geometry.location);
+        this.setState({
+          lat2: data.results[0].geometry.location.lat,
+          long2: data.results[0].geometry.location.lng
+        });
+      });
+  };
+
+  getLocation = () => {
     navigator.geolocation.getCurrentPosition(position => {
       this.setState({
         latitude: position.coords.latitude,
@@ -140,9 +160,8 @@ class Dashboard extends Component {
   render() {
     let button = <section>Loading...</section>;
     const positionOnMap = [this.state.latitude, this.state.longitude];
-    //[this.props.coords.latitude, this.props.coords.longitude];
-    // let geocoder = NodeGeocoder(this.state.options);
-    // geocoder.geocode()
+    const positionOnMap2 = [this.state.lat2, this.state.long2];
+
     if (this.state.authed.isLoggedIn) {
       button = (
         <section className="dashboard">
@@ -160,14 +179,6 @@ class Dashboard extends Component {
                     not you?
                   </button>
                 </section>
-                {/* <section className="user-buttons-container">
-                  <Link to="/members">
-                    <button className="user-buttons">Members List</button>
-                  </Link>
-                  <Link to={`/profile/${this.state.id}`}>
-                    <button className="user-buttons">Edit Profile</button>
-                  </Link>
-                </section> */}
               </section>
             </section>
           </span>
@@ -177,42 +188,12 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-body">
         {button}
-        <section>
-          <form onSubmit={this.handleSubmit}>
-            <section className="row">
-              <header className="field-header">Name of Event:</header>
-              <input type="text" name="name" 
-              placeholder="name of event" 
-              // value={this.state.name} 
-              onChange={this.handleChange} />
-            </section>
-            <section className="row">
-              <header className="field-header">Location:</header>
-              <input
-                type="text"
-                name="address"
-                placeholder="location of event"
-                // value={this.state.address}
-                onChange={this.handleChange}
-              />
-            </section>
-            <section className="row">
-              <header className="field-header">Time Start:</header>
-              <input type="text" placeholder="0:00" />
-            </section>
-            <section className="row">
-              <header className="field-header">Time End:</header>
-              <input type="text" placeholder="0:00" />
-            </section>
-            <button>Submit</button>
-          </form>
-        </section>
         <section className="map-container">
           <Map
             center={positionOnMap}
             zoom={this.state.zoom}
             className="map-styling"
-            onClick={this.getLocation}
+            // onClick={this.getLocation}
           >
             <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -221,6 +202,11 @@ class Dashboard extends Component {
             <Marker position={positionOnMap}>
               <Popup>
                 Coordinates: [{this.state.latitude},{this.state.longitude}]
+              </Popup>
+            </Marker>
+            <Marker position={positionOnMap2}>
+              <Popup>
+                Coordinates: [{this.state.lat2},{this.state.long2}]
               </Popup>
             </Marker>
           </Map>
@@ -232,19 +218,34 @@ class Dashboard extends Component {
               onChange={this.handleDateChange}
             />
             <Link to={`/new_event/${this.state.authed.isLoggedIn}`}>
-              <button className="add-event-button">Add Event</button>
+              {/* <button className="add-event-button">Add Event</button> */}
             </Link>
-            <section>
-              <header className="event-list">Events of the Day</header>
-              <section>
-                {this.state.data.map((event, i) => {
-                  return (
-                    <section className="single-event" key={i}>
-                      <button className="event-button">{event.EventName}</button>
-                    </section>
-                  );
-                })}
-              </section>
+            <section className="foo">
+              <form className="form-container" onSubmit={this.handleSubmit}>
+                <section className="row">
+                  <header className="field-header">Name of Event:</header>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="name of event"
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                  />
+                </section>
+                <section className="row">
+                  <header className="field-header">Location:</header>
+                  <input
+                    type="text"
+                    name="address"
+                    placeholder="location of event"
+                    value={this.state.address}
+                    onChange={this.handleChange}
+                  />
+                  <section className="button-container">
+                    <button className="submit-button">Submit</button>
+                  </section>
+                </section>
+              </form>
             </section>
           </section>
         </section>

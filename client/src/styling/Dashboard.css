@@ -69,6 +69,46 @@
   /* opacity: 0.6; */
 }
 
+/* Form */
+.foo {
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px double #4D7EA8;
+  border-radius: 0.2em;
+  margin: 1.5em;
+  padding: 1em;
+  height: 10em;
+  width: 10em;
+}
+
+.row {
+  margin: 0.5em;
+}
+
+.field-header {
+  color: #1D5D90;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin: 0.5em;
+}
+
+.submit-button {
+  background-color: #1d5d90;
+  color: white;
+  height: 2em;
+  width: 4.5em;
+}
+
+/* Map */
 .map-container {
   display: flex;
   flex-direction: row;
@@ -103,6 +143,15 @@
   margin: 0.5em;
   height: 3em;
   width: 8em;
+}
+
+.single-event {
+  color: black;
+}
+
+.event-button {
+  width: 10em;
+  height: 5em;
 }
 
 .add-event-button:hover {

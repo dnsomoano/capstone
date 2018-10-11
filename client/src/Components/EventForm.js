@@ -69,7 +69,7 @@ getLatest = () => {
         </section>
         <section className="form-container">
           <section className="field-style">
-            <form>
+            <form  className="form-container">
               <section className="row">
                 <header className="field-header">Name of Event:</header>
                 <input type="text" placeholder="name of event" />
