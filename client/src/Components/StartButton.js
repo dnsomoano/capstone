@@ -10,7 +10,7 @@ class StartButton extends Component {
   };
 
   render() {
-    console.log(process.env)
+    console.log(process.env);
     return (
       <div>
         <section className="button-container">
@@ -19,11 +19,6 @@ class StartButton extends Component {
             Get Started
           </button>
           {/* </Link> */}
-        </section>
-        <section>
-          <Link to="/register">
-            <span className="register-link">Register?</span>
-          </Link>
         </section>
       </div>
     );

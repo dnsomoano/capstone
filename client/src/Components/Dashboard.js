@@ -23,7 +23,6 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //   Date: moment(),
       startDate: moment(),
       data: [],
       id: 0,
@@ -34,13 +33,13 @@ class Dashboard extends Component {
       longitude: -82.452606, // with these coordinates
       name: "",
       address: "",
-      lat2: 0,
-      long2: 0,
+      markers: [],
       authed: {
         isLoggedIn: false
       }
     };
     this.handleChange = this.handleChange.bind(this);
+    // this.getLocation(null);
   }
 
   componentDidMount() {
@@ -64,7 +63,6 @@ class Dashboard extends Component {
     fetch(PROFILE_URL, {
       headers: {
         Authorization: "Bearer " + auth.getAccessToken()
-        // mode: "no-cors"
       }
     })
       .then(resp => resp.json())
@@ -84,13 +82,12 @@ class Dashboard extends Component {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + auth.getAccessToken()
-        // mode: "no-cors"
       },
       body: JSON.stringify({
         EventName: this.state.name,
-        EventAddress: this.state.address
-        // Latitude: this.state.latitude,
-        // Longitude: this.state.longitude
+        EventAddress: this.state.address,
+        Latitude: this.state.latitude,
+        Longitude: this.state.longitude
       })
     })
       .then(resp => {
@@ -100,7 +97,7 @@ class Dashboard extends Component {
       .then(_ => {
         console.log({ _ });
         if (this.state.address) {
-          this.getGeo();
+          this.getGeo(this.state.address);
         } else {
           this.getLocation(null); // initiate GPS position call
         }
@@ -130,21 +127,15 @@ class Dashboard extends Component {
     });
   }
 
-  getGeo = () => {
+  getGeo = location => {
     fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address= + ${
-        this.state.address
-      } + &key=AIzaSyA5-V3BEWeNq_lasnMAL8Bip0_bbvSr03U`
+      `https://maps.googleapis.com/maps/api/geocode/json?address= + ${location} + &key=AIzaSyA5-V3BEWeNq_lasnMAL8Bip0_bbvSr03U`
     )
       .then(resp => resp.json())
       .then(data => {
-        console.log(data.results[0].geometry.location);
-        console.log(data.results[0].geometry.location.lat);
-        console.log(typeof data.results[0].geometry.location);
-        this.setState({
-          lat2: data.results[0].geometry.location.lat,
-          long2: data.results[0].geometry.location.lng
-        });
+        const { lat, lng } = data.results[0].geometry.location;
+        const points = [lat, lng];
+        this.setState({ markers: [...this.state.markers, points] });
       });
   };
 
@@ -160,7 +151,6 @@ class Dashboard extends Component {
   render() {
     let button = <section>Loading...</section>;
     const positionOnMap = [this.state.latitude, this.state.longitude];
-    const positionOnMap2 = [this.state.lat2, this.state.long2];
 
     if (this.state.authed.isLoggedIn) {
       button = (
@@ -193,22 +183,16 @@ class Dashboard extends Component {
             center={positionOnMap}
             zoom={this.state.zoom}
             className="map-styling"
-            // onClick={this.getLocation}
           >
             <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={positionOnMap}>
-              <Popup>
-                Coordinates: [{this.state.latitude},{this.state.longitude}]
-              </Popup>
-            </Marker>
-            <Marker position={positionOnMap2}>
-              <Popup>
-                Coordinates: [{this.state.lat2},{this.state.long2}]
-              </Popup>
-            </Marker>
+            {this.state.markers.map((mark, i) => (
+              <Marker key={i} position={mark}>
+                <Popup>Coordinates: mark</Popup>
+              </Marker>
+            ))}
           </Map>
           <section className="side-bar">
             <DatePicker
@@ -217,9 +201,6 @@ class Dashboard extends Component {
               selected={this.state.startDate}
               onChange={this.handleDateChange}
             />
-            <Link to={`/new_event/${this.state.authed.isLoggedIn}`}>
-              {/* <button className="add-event-button">Add Event</button> */}
-            </Link>
             <section className="foo">
               <form className="form-container" onSubmit={this.handleSubmit}>
                 <section className="row">
@@ -256,9 +237,3 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
-// geolocated({
-//   positionOptions: {
-//     enableHighAccuracy: false
-//   },
-//   userDecisionTimeout: 5000
-// })(Dashboard);
