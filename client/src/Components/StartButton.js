@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../styling/StartButton.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Auth from "../Auth/Auth.js";
 
 const auth = new Auth();

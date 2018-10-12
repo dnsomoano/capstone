@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import "../styling/Dashboard.css";
 import Auth from "../Auth/Auth.js";
-// import { fetchingPosition, getCurrentPosition } from "react-geolocation";
-import { Link } from "react-router-dom";
-// import { Geocoder, Providers } from "node-geocoder";
+// import { Link } from "react-router-dom";
 import {
   // FeatureGroup,
   Map,
@@ -28,9 +26,9 @@ class Dashboard extends Component {
       id: 0,
       NewLat: 0,
       NewLong: 0,
-      zoom: 13,
-      latitude: 27.964157, // default to Tampa, FL
-      longitude: -82.452606, // with these coordinates
+      zoom: 10,
+      latitude: 0.0, // default to Tampa, FL
+      longitude: 0.0, // with these coordinates
       name: "",
       address: "",
       markers: [],
@@ -76,40 +74,51 @@ class Dashboard extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(`${process.env.REACT_APP_API.trim()}/api/events`);
-    fetch(`${process.env.REACT_APP_API.trim()}/api/events`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + auth.getAccessToken()
-      },
-      body: JSON.stringify({
-        EventName: this.state.name,
-        EventAddress: this.state.address,
-        Latitude: this.state.latitude,
-        Longitude: this.state.longitude
+    if (this.state.address) {
+      this.getGeo(this.state.address);
+    } else if (!this.state.address) {
+      // if not then must be geolocated
+      this.getLocation(this.state.latitude, this.state.longitude);
+    }
+      // console.log(`${process.env.REACT_APP_API.trim()}/api/events`);
+      fetch(`${process.env.REACT_APP_API.trim()}/api/events`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.getAccessToken()
+        },
+        body: JSON.stringify({
+          EventName: this.state.name,
+          EventAddress: this.state.address,
+          EventLatitude: this.state.latitude,
+          EventLongitude: this.state.longitude
+        })
       })
-    })
-      .then(resp => {
-        console.log("got back");
-        return resp.json();
-      })
-      .then(_ => {
-        console.log({ _ });
-        if (this.state.address) {
-          this.getGeo(this.state.address);
-        } else {
-          this.getLocation(null); // initiate GPS position call
-        }
-        this.getLatest();
-      });
+        .then(resp => {
+          console.log("got back");
+          return resp.json();
+        })
+        .then(_ => {
+          console.log({ _ });
+        });
+    this.getLatest();
+    localStorage.removeItem("latitude");
+    localStorage.removeItem("longitude");
   };
 
+  // Changes values of the state targetting name
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
+
+  handleLatLongChange = (lat, long) => {
+    this.setState({
+      latitude: lat,
+      longitude: long
+    })
+  }
 
   // Handles login & logout
   login = () => {
@@ -127,6 +136,7 @@ class Dashboard extends Component {
     });
   }
 
+  // converts address to a latitude and longitude
   getGeo = location => {
     fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address= + ${location} + &key=AIzaSyA5-V3BEWeNq_lasnMAL8Bip0_bbvSr03U`
@@ -136,16 +146,39 @@ class Dashboard extends Component {
         const { lat, lng } = data.results[0].geometry.location;
         const points = [lat, lng];
         this.setState({ markers: [...this.state.markers, points] });
+        this.handleLatLongChange(lat, lng);
+        localStorage.setItem("latitude", lat);
+        localStorage.setItem("longitude", lng);
+        let getLatLocal = parseFloat(localStorage.getItem("latitude"));
+        let getLongLocal = parseFloat(localStorage.getItem("longitude"));
+        console.log(getLatLocal);
+        console.log(getLongLocal);
+        // TODO fix bind to state
+        this.setState({
+          latitude: getLatLocal,
+          longitude: getLongLocal
+        })
       });
   };
 
-  getLocation = () => {
+  // gets location based on geolocation
+  getLocation = (lat, long) => {
     navigator.geolocation.getCurrentPosition(position => {
-      this.setState({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      });
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+      localStorage.setItem("latitude", lat);
+      localStorage.setItem("longitude", long);
     });
+    let getLatLocal = parseFloat(localStorage.getItem("latitude"));
+    let getLongLocal = parseFloat(localStorage.getItem("longitude"));
+    console.log(getLatLocal);
+    console.log(getLongLocal);
+    this.setState({
+      latitude: getLatLocal,
+      longitude: getLongLocal
+    })
+    console.log(this.state.latitude);
+    console.log(this.state.latitude);
   };
 
   render() {
@@ -188,6 +221,9 @@ class Dashboard extends Component {
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            <Marker position={positionOnMap}>
+              <Popup>Coordinates: {positionOnMap}</Popup>
+            </Marker>
             {this.state.markers.map((mark, i) => (
               <Marker key={i} position={mark}>
                 <Popup>Coordinates: mark</Popup>
